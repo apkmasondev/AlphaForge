@@ -5,6 +5,8 @@ upscale with AI, convert and compress to PNG / JPG / WebP / AVIF. One pipeline, 
 
 > Processing happens locally on this computer. Images are not uploaded.
 
+**Website:** https://apkmason.dev/alphaforge-site/ · **Download:** [latest release](../../releases/latest)
+
 ![AlphaForge](assets/app-icon.png)
 
 ## Highlights

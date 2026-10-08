@@ -1,0 +1,4 @@
+*.safetensors filter=lfs diff=lfs merge=lfs -text
+*.png binary
+*.ico binary
+*.onnx binary

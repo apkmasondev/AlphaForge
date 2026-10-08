@@ -1,0 +1,16 @@
+[package]
+name = "af-cli"
+description = "AlphaForge command-line harness (testing, benchmarking, headless batch runs)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "af-cli"
+path = "src/main.rs"
+
+[dependencies]
+af-core = { path = "../af-core" }
+serde_json = "1"
+env_logger = "0.11"
+log = "0.4"

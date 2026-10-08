@@ -1,0 +1,18 @@
+# build output
+/target/
+/app/node_modules/
+/app/dist/
+/app/src-tauri/gen/
+/release/
+# local tooling and test data (not redistributed)
+/.tools/
+/_dev/
+/testdata/
+# native runtime fetched by tools/fetch_runtime.ps1
+/app/src-tauri/resources/onnxruntime/*.dll
+/app/src-tauri/resources/vcruntime/
+# misc
+__pycache__/
+*.part
+*.aftmp
+*.log

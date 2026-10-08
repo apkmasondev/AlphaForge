@@ -15,7 +15,21 @@ and the installed NSIS build), the `af-cli` harness and `cargo test`.
 | Presets | JSON round-trip, no duplicate keys |
 | Templates | Rust weight assembly is byte-identical to the build-time reference for all bundled models (fp16 + fp32) and bundled weight checksums match |
 
-All 18 tests pass.
+Also: AVIF size check before decoding (decompression bomb), palette PNG keeps opaque/transparent
+pixels exact, panic guard, pipeline warnings, atomic overwrite. All 24 tests pass (`cargo test -p af-core
+-- --include-ignored`).
+
+## Audit regression (1.0.3)
+
+| Suite | Result |
+|---|---|
+| Core pipeline via `af-cli` (trim, padding, 7 resize modes, fill, enhance, AI upscale/denoise, PNG/JPG/WebP/AVIF/Same, EXIF orientation + metadata stripping, 12 input variants, damaged files) | 72/73 — the one difference is RGB under fully transparent pixels of a 16-bit PNG (zeroed on purpose, invisible) |
+| All 10 presets × 16 photos (3 background models for Transparent Asset: subject exactly 32 px from every edge) | 346/349 — Web Asset margin on a small photo (expected), Compress can grow an already small JPG by ~0.6 %, MPO is JPEG |
+| UI flows in the running app (trim/reorder, every step type, JPG warning, presets, brush undo/redo/reset, compare, clipboard, export names/conflicts/structure, cancel, reprocess, language/theme) | pass |
+| Concurrency (clear while loading, double export/download, remove during export) | pass |
+| New fixes (duplicates in one drop, Ctrl+click, copy before preview is ready, size encode not blocking the next preview: 151 ms vs a PNG-max encode, Skip without processing: 0.25 s vs 14 s, 5000-file limit notice, Escape in number fields, Space on step switches) | pass |
+| Memory soak (34 photos × 3 cycles) | no growth beyond allocator noise |
+| Network monitor (full session incl. AI and export) | no connections |
 
 ## Image content
 

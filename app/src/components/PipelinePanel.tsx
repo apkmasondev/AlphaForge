@@ -135,7 +135,7 @@ function StepCard({ step, index, total, open, toggle, onGrip, dragState }: {
     .join(" ");
   return (
     <div className={cls} data-step-index={index}>
-      <div className="step-head" onClick={toggle} role="button" aria-expanded={open} tabIndex={0} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), toggle())}>
+      <div className="step-head" onClick={toggle} role="button" aria-expanded={open} tabIndex={0} onKeyDown={(e) => e.target === e.currentTarget && (e.key === "Enter" || e.key === " ") && (e.preventDefault(), toggle())}>
         <span className="step-grip" onPointerDown={(e) => onGrip(e, step.id)} onClick={(e) => e.stopPropagation()} aria-label={t("Drag to reorder")} data-tip={t("Drag to reorder")}>
           <GripVertical size={14} />
         </span>

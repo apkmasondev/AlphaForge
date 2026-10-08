@@ -41,7 +41,7 @@ export function RemoveBackgroundEditor({ step, upd }: { step: Extract<StepEntry,
           return (
             <div key={o.id} className={`model-opt${step.model === o.id ? " on" : ""}`} role="radio" aria-checked={step.model === o.id} tabIndex={0}
               onClick={() => upd({ model: o.id } as Partial<StepEntry>)}
-              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && upd({ model: o.id } as Partial<StepEntry>)}>
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), upd({ model: o.id } as Partial<StepEntry>))}>
               <span className="radio" />
               <span style={{ minWidth: 0 }}>
                 <div className="m-name">{t(o.name)}</div>
@@ -288,7 +288,7 @@ export function UpscaleEditor({ step, upd }: { step: Extract<StepEntry, { type: 
           { id: "illustration", name: t("Illustration"), desc: t("Drawings, anime, logos and flat art") },
         ] as const).map((o) => (
           <div key={o.id} className={`model-opt${step.model === o.id ? " on" : ""}`} role="radio" aria-checked={step.model === o.id} tabIndex={0}
-            onClick={() => upd({ model: o.id } as Partial<StepEntry>)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && upd({ model: o.id } as Partial<StepEntry>)}>
+            onClick={() => upd({ model: o.id } as Partial<StepEntry>)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), upd({ model: o.id } as Partial<StepEntry>))}>
             <span className="radio" />
             <span>
               <div className="m-name">{o.name}</div>

@@ -18,7 +18,7 @@ powershell -ExecutionPolicy Bypass -File tools\fetch_runtime.ps1   # ONNX Runtim
 $env:PATH = "$PWD\.tools\nasm-3.01;$env:PATH"
 cd app
 npm ci
-npm run tauri build          # → target\release\bundle\nsis\AlphaForge_1.0.0_x64-setup.exe
+npm run tauri build          # → target\release\bundle\nsis\AlphaForge_<version>_x64-setup.exe
 ```
 
 Development with hot reload: `npm run tauri dev`.

@@ -34,7 +34,7 @@ upscale with AI, convert and compress to PNG / JPG / WebP / AVIF. One pipeline, 
 
 ## Install
 
-Download `AlphaForge_1.0.0_x64-setup.exe` from [Releases](../../releases) and run it (per-user install, no admin rights needed; the installer is not code-signed, so SmartScreen asks once — *More info → Run anyway*). Requires Windows 10
+Download the latest `AlphaForge_<version>_x64-setup.exe` from [Releases](../../releases/latest) and run it (per-user install, no admin rights needed; the installer is not code-signed, so SmartScreen asks once — *More info → Run anyway*). Requires Windows 10
 21H2+ or Windows 11 (64-bit). WebView2 is installed automatically if missing.
 
 For NVIDIA GPUs: *Settings → AI & GPU → GPU acceleration pack → Install* (one-time 1.46 GB download,

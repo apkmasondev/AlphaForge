@@ -31,6 +31,8 @@ impl ModelSession {
     /// Run the model on one NCHW float32 tensor. Cancelling the token terminates the run.
     pub fn run(&self, data: Vec<f32>, shape: [usize; 4], cancel: &CancelToken) -> Result<(Vec<usize>, Vec<f32>)> {
         cancel.check()?;
+        // Also mark the start, so a run longer than the idle timeout does not look idle.
+        *self.last_used.lock() = Instant::now();
         let tensor = ort::value::Tensor::from_array((shape, data))?;
         let opts = Arc::new(RunOptions::new()?);
         let o2 = Arc::clone(&opts);

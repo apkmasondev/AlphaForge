@@ -135,19 +135,19 @@ fn load_info(app: &AppHandle, ids: &[u64]) {
                 Some(i) => i.source.clone(),
                 None => return,
             };
-            let res = match &source {
-                Source::File(p) => imageio::decode_file(p),
-                Source::Memory(b) => imageio::decode_bytes(b),
-            };
             // Heavy work (thumbnail resize/encode uses rayon) happens before taking any lock:
             // rayon may run other queued jobs on this thread while it waits, and those jobs
-            // lock the item list too.
-            let prepared = res.map(|dec| {
+            // lock the item list too. `guard`: a panicking decoder would abort the whole app.
+            let prepared = af_core::guard(|| {
+                let dec = match &source {
+                    Source::File(p) => imageio::decode_file(p),
+                    Source::Memory(b) => imageio::decode_bytes(b),
+                }?;
                 let (w, h) = dec.image.dimensions();
                 let s = (THUMB as f32 / w.max(h) as f32).min(1.0);
                 let (tw, th) = (((w as f32 * s).round() as u32).max(1), ((h as f32 * s).round() as u32).max(1));
                 let thumb = af_core::ops::resize_rgba(&dec.image, tw, th, af_core::ops::Filter::Bilinear).ok().and_then(|t| imageio::encode_preview_png(&t).ok());
-                (dec, thumb)
+                Ok((dec, thumb))
             });
             let (dto, keep) = {
                 let mut items = state.items.write();

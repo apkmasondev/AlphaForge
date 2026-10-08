@@ -284,8 +284,15 @@ impl Pipeline {
                     makes_alpha = true;
                     filled = false;
                 }
-                Step::Padding { color, .. } if color[3] < 255 => makes_alpha = true,
-                Step::Resize { mode: ResizeMode::Pad, background, .. } if background[3] < 255 => makes_alpha = true,
+                // transparency added after a fill is not covered by that fill
+                Step::Padding { color, .. } if color[3] < 255 => {
+                    makes_alpha = true;
+                    filled = false;
+                }
+                Step::Resize { mode: ResizeMode::Pad, background, .. } if background[3] < 255 => {
+                    makes_alpha = true;
+                    filled = false;
+                }
                 Step::Background { color } if color[3] == 255 => filled = true,
                 _ => {}
             }
@@ -312,5 +319,25 @@ impl Pipeline {
 
     pub fn has_ai(&self) -> bool {
         self.active().any(|s| s.step.is_ai())
+    }
+}
+
+#[cfg(test)]
+mod warning_tests {
+    use super::Pipeline;
+
+    fn pipe(steps: &str, format: &str) -> Pipeline {
+        serde_json::from_str(&format!(r#"{{"steps":[{steps}],"output":{{"format":"{format}"}}}}"#)).unwrap()
+    }
+
+    #[test]
+    fn jpg_warning_for_transparency_added_after_a_fill() {
+        let bg = r#"{"id":"b","type":"removeBackground"}"#;
+        let fill = r#"{"id":"f","type":"background","color":[255,255,255,255]}"#;
+        let pad = r#"{"id":"p","type":"padding","top":10,"right":10,"bottom":10,"left":10}"#;
+        assert!(pipe(&format!("{bg},{fill}"), "jpeg").warnings().is_empty());
+        assert_eq!(pipe(&format!("{bg},{fill},{pad}"), "jpeg").warnings().len(), 1);
+        assert_eq!(pipe(bg, "jpeg").warnings().len(), 1);
+        assert!(pipe(bg, "png").warnings().is_empty());
     }
 }

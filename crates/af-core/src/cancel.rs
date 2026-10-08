@@ -64,10 +64,14 @@ impl CancelToken {
     /// returned guard lives.
     pub fn on_cancel(&self, f: impl Fn() + Send + Sync + 'static) -> HookGuard {
         let id = self.inner.next.fetch_add(1, Ordering::Relaxed);
-        if self.is_cancelled() {
-            f();
+        // Register first, then look at the flag: a `cancel()` racing with this call either sees
+        // the hook in the list or has already set the flag we read here (never neither).
+        let mut hooks = self.inner.hooks.lock();
+        hooks.push((id, Box::new(f)));
+        if self.inner.flag.load(Ordering::SeqCst) {
+            (hooks[hooks.len() - 1].1)();
         }
-        self.inner.hooks.lock().push((id, Box::new(f)));
+        drop(hooks);
         HookGuard { token: self.clone(), id }
     }
 }

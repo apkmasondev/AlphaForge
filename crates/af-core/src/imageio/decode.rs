@@ -102,8 +102,30 @@ pub fn decode_bytes(bytes: &[u8]) -> Result<Decoded> {
     Ok(Decoded { image: rgba, info })
 }
 
+/// Largest image size declared in the AVIF `ispe` (image spatial extents) boxes. Read before
+/// decoding so a tiny file that declares a gigantic image is rejected without allocating.
+fn avif_declared_size(bytes: &[u8]) -> Option<(u32, u32)> {
+    let be = |i: usize| bytes.get(i..i + 4).map(|b| u32::from_be_bytes([b[0], b[1], b[2], b[3]]));
+    let mut best: Option<(u32, u32)> = None;
+    let mut i = 0;
+    while let Some(off) = bytes[i..].windows(4).position(|w| w == b"ispe") {
+        let at = i + off;
+        // box: size(4) "ispe"(4) version+flags(4) width(4) height(4)
+        if let (Some(w), Some(h)) = (be(at + 8), be(at + 12)) {
+            if best.is_none_or(|(bw, bh)| w as u64 * h as u64 > bw as u64 * bh as u64) {
+                best = Some((w, h));
+            }
+        }
+        i = at + 4;
+    }
+    best
+}
+
 fn decode_avif(bytes: &[u8]) -> Result<Decoded> {
     use avif_decode::{Decoder, Image};
+    if let Some((w, h)) = avif_declared_size(bytes) {
+        check_size(w, h)?;
+    }
     let dec = Decoder::from_avif(bytes).map_err(|e| Error::decode(format!("AVIF: {e}")))?;
     let img = dec.to_image().map_err(|e| Error::decode(format!("AVIF: {e}")))?;
     let (w, h, depth, data): (usize, usize, u8, Vec<u8>) = match img {
@@ -163,4 +185,32 @@ fn icc_is_srgb(icc: &[u8]) -> bool {
     // (e.g. "sRGB IEC61966-2.1", "sRGB built-in"). This avoids re-quantizing such images.
     let hay = &icc[..icc.len().min(4096)];
     hay.windows(4).any(|w| w == b"sRGB") || hay.windows(8).any(|w| w == b"s\0R\0G\0B\0")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn tiny_avif() -> Vec<u8> {
+        let img = Rgba::from_pixel(8, 8, image::Rgba([10, 200, 30, 255]));
+        let o = crate::imageio::EncodeOptions { format: crate::imageio::Format::Avif, ..Default::default() };
+        crate::imageio::encode(&img, &o).unwrap()
+    }
+
+    #[test]
+    fn avif_roundtrip_and_declared_size() {
+        let b = tiny_avif();
+        assert_eq!(avif_declared_size(&b), Some((8, 8)));
+        let d = decode_bytes(&b).unwrap();
+        assert_eq!((d.info.width, d.info.height), (8, 8));
+    }
+
+    #[test]
+    fn avif_bomb_rejected_before_decoding() {
+        let mut b = tiny_avif();
+        let at = b.windows(4).position(|w| w == b"ispe").unwrap();
+        b[at + 8..at + 12].copy_from_slice(&60_000u32.to_be_bytes());
+        b[at + 12..at + 16].copy_from_slice(&60_000u32.to_be_bytes());
+        assert!(matches!(decode_bytes(&b), Err(Error::TooLarge(60_000, 60_000, _))));
+    }
 }

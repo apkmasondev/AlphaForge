@@ -87,7 +87,10 @@ fn run_with_fallback(engine: &Engine, spec: &'static ModelSpec, template: &str, 
         Err(e @ (Error::GpuOom(_) | Error::Runtime(_))) if device == Device::Cuda => {
             log::warn!("GPU upscale failed, retrying on CPU: {e}");
             engine.unload(template);
-            note = Some("GPU ran out of memory — this image was upscaled on the CPU.".into());
+            note = Some(match e {
+                Error::GpuOom(_) => "GPU ran out of memory — this image was upscaled on the CPU.".into(),
+                _ => "GPU processing failed — this image was upscaled on the CPU.".into(),
+            });
             (run(engine, template, img, out_scale, Device::Cpu, cancel, progress)?, Device::Cpu)
         }
         other => (other?, device),

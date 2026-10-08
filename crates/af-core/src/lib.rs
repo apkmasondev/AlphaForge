@@ -22,3 +22,25 @@ pub use error::{Error, Result};
 
 /// RGBA8 image used as the common currency between pipeline steps (sRGB, straight alpha).
 pub type Rgba = image::RgbaImage;
+
+/// Run `f`, turning a panic (e.g. inside a third-party decoder) into an ordinary error so a
+/// background thread can report it instead of dying silently or aborting the process.
+pub fn guard<T>(f: impl FnOnce() -> Result<T>) -> Result<T> {
+    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)) {
+        Ok(r) => r,
+        Err(p) => {
+            let msg = p.downcast_ref::<&str>().map(|s| s.to_string()).or_else(|| p.downcast_ref::<String>().cloned()).unwrap_or_else(|| "unknown".into());
+            Err(Error::Runtime(format!("internal error: {msg}")))
+        }
+    }
+}
+
+#[cfg(test)]
+mod guard_tests {
+    #[test]
+    fn panic_becomes_error() {
+        let r: crate::Result<()> = crate::guard(|| panic!("boom"));
+        assert!(matches!(r, Err(crate::Error::Runtime(m)) if m.contains("boom")));
+        assert_eq!(crate::guard(|| Ok(5)).unwrap(), 5);
+    }
+}

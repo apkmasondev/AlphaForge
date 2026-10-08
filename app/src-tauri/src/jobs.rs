@@ -76,7 +76,7 @@ pub fn install_model(app: &AppHandle, id: &str) -> Result<()> {
     std::thread::spawn(move || {
         let state = app2.state::<AppState>();
         let p = throttled(app2.clone(), key.clone());
-        let r = state.engine.install(spec, &cancel, &|d, t| p(d, t, spec.name));
+        let r = af_core::guard(|| state.engine.install(spec, &cancel, &|d, t| p(d, t, spec.name)));
         finish(&app2, &key, r);
     });
     Ok(())
@@ -88,7 +88,7 @@ pub fn install_gpu_pack(app: &AppHandle) -> Result<()> {
     std::thread::spawn(move || {
         let dir = app2.state::<AppState>().paths.data.join("runtime").join("cuda12");
         let p = throttled(app2.clone(), GPU_PACK_KEY.to_string());
-        let r = gpupack::install(&dir, &cancel, &p);
+        let r = af_core::guard(|| gpupack::install(&dir, &cancel, &p));
         finish(&app2, GPU_PACK_KEY, r);
     });
     Ok(())

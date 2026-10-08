@@ -546,6 +546,7 @@ const PL: Record<string, string> = {
   "Not enough free GPU memory — this image was processed on the CPU.": "Za mało wolnej pamięci GPU — to zdjęcie przetworzono na procesorze.",
   "GPU inference failed — this image was processed on the CPU.": "Obliczenia na GPU nie powiodły się — to zdjęcie przetworzono na procesorze.",
   "GPU ran out of memory — this image was upscaled on the CPU.": "Zabrakło pamięci GPU — to zdjęcie powiększono na procesorze.",
+  "GPU processing failed — this image was upscaled on the CPU.": "Obliczenia na GPU nie powiodły się — to zdjęcie powiększono na procesorze.",
   "Output exists — skipped": "Plik wynikowy istnieje — pominięto",
   "Invalid settings": "Nieprawidłowe ustawienia",
   "choose an output folder first": "najpierw wybierz folder docelowy",

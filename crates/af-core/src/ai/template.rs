@@ -110,6 +110,16 @@ pub fn assemble(variant: &Variant, weights: &Path) -> Result<Vec<u8>> {
         if numel != src_numel {
             return Err(Error::Runtime(format!("shape mismatch for {}", t.src)));
         }
+        let elem = match t.dtype.as_str() {
+            "f32" => 4,
+            "f16" | "bf16" => 2,
+            "i64" => 8,
+            _ => 0,
+        };
+        // A damaged manifest must give an error, not an out-of-bounds panic.
+        if t.nbytes != numel * elem || t.offset.checked_add(t.nbytes).is_none_or(|end| end > variant.blob_size) {
+            return Err(Error::Runtime(format!("bad manifest entry for {}", t.src)));
+        }
         let dst = &mut blob[t.offset as usize..(t.offset + t.nbytes) as usize];
         convert(view.dtype(), view.data(), &t.dtype, dst).map_err(|e| Error::Runtime(format!("{}: {e}", t.src)))?;
     }

@@ -36,6 +36,12 @@ fn init_logging(dir: &std::path::Path) {
         b.target(env_logger::Target::Pipe(Box::new(f)));
     }
     let _ = b.try_init();
+    // Panics are turned into errors by `af_core::guard`; record where they happened.
+    let default_hook = std::panic::take_hook();
+    std::panic::set_hook(Box::new(move |info| {
+        log::error!("panic: {info}");
+        default_hook(info);
+    }));
 }
 
 fn paths_from_args(args: &[String]) -> Vec<PathBuf> {

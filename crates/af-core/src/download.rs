@@ -256,7 +256,7 @@ pub fn remote_zip_index(url: &str) -> Result<Vec<RemoteEntry>> {
         }
         let z64_off = le64(&tail, loc + 8);
         let rec = read_all(get(&agent, url, Some((z64_off, Some(z64_off + 55))))?, 56)?;
-        if le32(&rec, 0) != 0x0606_4b50 {
+        if rec.len() < 56 || le32(&rec, 0) != 0x0606_4b50 {
             return Err(Error::Download("bad zip64 record".into()));
         }
         count = le64(&rec, 32);
@@ -277,6 +277,9 @@ pub fn remote_zip_index(url: &str) -> Result<Vec<RemoteEntry>> {
         let xlen = le16(&cd, p + 30) as usize;
         let clen = le16(&cd, p + 32) as usize;
         let mut lho = le32(&cd, p + 42) as u64;
+        if p + 46 + nlen + xlen + clen > cd.len() {
+            return Err(Error::Download("truncated zip directory".into()));
+        }
         let name = String::from_utf8_lossy(&cd[p + 46..p + 46 + nlen]).into_owned();
         // zip64 extra field
         let mut x = p + 46 + nlen;
@@ -284,17 +287,21 @@ pub fn remote_zip_index(url: &str) -> Result<Vec<RemoteEntry>> {
         while x + 4 <= xend {
             let id = le16(&cd, x);
             let sz = le16(&cd, x + 2) as usize;
+            if x + 4 + sz > xend {
+                break;
+            }
             if id == 0x0001 {
                 let mut q = x + 4;
-                if usize_ == 0xFFFF_FFFF {
+                let end = x + 4 + sz;
+                if usize_ == 0xFFFF_FFFF && q + 8 <= end {
                     usize_ = le64(&cd, q);
                     q += 8;
                 }
-                if csize == 0xFFFF_FFFF {
+                if csize == 0xFFFF_FFFF && q + 8 <= end {
                     csize = le64(&cd, q);
                     q += 8;
                 }
-                if lho == 0xFFFF_FFFF {
+                if lho == 0xFFFF_FFFF && q + 8 <= end {
                     lho = le64(&cd, q);
                 }
             }

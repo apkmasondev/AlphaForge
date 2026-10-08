@@ -69,7 +69,7 @@ pub struct RuntimePaths {
 
 /// Initialize ONNX Runtime (idempotent). Later calls return the first result.
 pub fn init(paths: &RuntimePaths, pref: DevicePref) -> Result<&'static RuntimeInfo> {
-    let r = RUNTIME.get_or_init(|| init_inner(paths, pref).map_err(|e| e.to_string()));
+    let r = RUNTIME.get_or_init(|| crate::guard(|| init_inner(paths, pref)).map_err(|e| e.to_string()));
     r.as_ref().map_err(|e| Error::Runtime(e.clone()))
 }
 

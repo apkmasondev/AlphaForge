@@ -114,7 +114,14 @@ fn worker(app: AppHandle, rx: Receiver<Request>, current: Arc<Mutex<Option<Cance
         }
         let token = CancelToken::new();
         *current.lock() = Some(token.clone());
-        run_one(&app, &req, &token);
+        let r = af_core::guard(|| {
+            run_one(&app, &req, &token);
+            Ok(())
+        });
+        if let Err(e) = r {
+            log::error!("preview failed: {e}");
+            let _ = app.emit("preview-error", ErrorEvt { id: req.id, seq: req.seq, message: e.to_string(), missing_model: None });
+        }
         *current.lock() = None;
     }
 }

@@ -116,7 +116,7 @@ fn run(app: &AppHandle, ids: Vec<u64>, pipe: Pipeline, settings: ExportSettings,
                 }
                 let Some(id) = queue.lock().next() else { break };
                 set_status(app, id, ItemStatus::Processing, None, None);
-                let r = process_one(app, id, &pipe, &planner, cancel, &|label, f| emit_progress(Some(id), label, f));
+                let r = af_core::guard(|| process_one(app, id, &pipe, &planner, cancel, &|label, f| emit_progress(Some(id), label, f)));
                 match r {
                     Ok(Some((out, in_bytes))) => {
                         let mut sm = summary.lock();

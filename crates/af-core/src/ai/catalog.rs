@@ -1,4 +1,4 @@
-//! The model catalog. Only permissively licensed models (MIT / BSD-3-Clause) are listed.
+//! The model catalog. Only permissively licensed models (MIT / BSD-3-Clause / Apache-2.0) are listed.
 
 use serde::Serialize;
 
@@ -7,6 +7,7 @@ use serde::Serialize;
 pub enum Kind {
     Background,
     Upscale,
+    Depth,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -150,6 +151,23 @@ pub static MODELS: &[ModelSpec] = &[
         gpu_secs: 1.5,
         cpu_secs: 50.0,
         scale: 4,
+    },
+    ModelSpec {
+        id: "depth",
+        kind: Kind::Depth,
+        name: "Depth",
+        tagline: "Estimates distance for a realistic, lens-like background blur.",
+        family: "Depth Anything V2 Small (ViT-S, 518 px)",
+        template: "depth-anything-v2-small",
+        // Only the Small checkpoint is Apache-2.0 (Base/Large/Giant are non-commercial).
+        license: "Apache-2.0",
+        homepage: "https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf",
+        bundled: false,
+        download_bytes: 99_173_660,
+        min_vram_mb: 1500,
+        gpu_secs: 0.2,
+        cpu_secs: 0.9,
+        scale: 1,
     },
 ];
 

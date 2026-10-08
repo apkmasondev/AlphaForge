@@ -156,6 +156,7 @@ pub fn run() {
             commands::open_files_dialog,
             commands::open_folder_dialog,
             commands::choose_folder,
+            commands::choose_image,
             commands::list_items,
             commands::remove_items,
             commands::clear_items,

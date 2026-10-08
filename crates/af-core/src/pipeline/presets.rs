@@ -6,6 +6,7 @@ use super::{BgModel, OutFormat, Output, PadUnit, Pipeline, ResizeMode, Step, Ste
 use crate::ai::upscale::SrModel;
 use crate::imageio::{EncodeOptions, PngLevel};
 use crate::mask::Refine;
+use crate::ops::backdrop::{BackdropMode, ImageFit};
 use crate::ops::Filter;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -25,6 +26,12 @@ fn e(id: &str, step: Step) -> StepEntry {
 
 fn bg() -> Step {
     Step::RemoveBackground { model: BgModel::Auto, refine: Refine::default() }
+}
+fn backdrop(mode: BackdropMode, color: [u8; 4]) -> Step {
+    Step::Background { color, mode, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.5, depth: false, dim: 0.0, image: None, fit: ImageFit::Cover }
+}
+fn fill(color: [u8; 4]) -> Step {
+    backdrop(BackdropMode::Color, color)
 }
 fn trim() -> Step {
     Step::Trim { mode: TrimMode::Auto, threshold: 8 }
@@ -99,9 +106,19 @@ pub fn builtin() -> Vec<Preset> {
                     "resize",
                     Step::Resize { mode: ResizeMode::Pad, width: 2000, height: 2000, percent: 100.0, filter: Filter::Lanczos, enlarge: true, background: [255, 255, 255, 255] },
                 ),
-                e("fill", Step::Background { color: [255, 255, 255, 255] }),
+                e("fill", fill([255, 255, 255, 255])),
             ],
             out(OutFormat::Jpeg, 90),
+        ),
+        p(
+            "blurred-background",
+            "Blurred Background",
+            "Subject in focus, original background softly blurred by distance (AI depth), JPG.",
+            vec![
+                e("bg", bg()),
+                e("blur", Step::Background { color: [255, 255, 255, 255], mode: BackdropMode::Blur, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.55, depth: true, dim: 0.0, image: None, fit: ImageFit::Cover }),
+            ],
+            out(OutFormat::Jpeg, 92),
         ),
         p(
             "game-texture",

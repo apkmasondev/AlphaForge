@@ -35,6 +35,7 @@ export const api = {
   openFilesDialog: () => invoke<AddResult>("open_files_dialog"),
   openFolderDialog: () => invoke<AddResult>("open_folder_dialog"),
   chooseFolder: (title: string) => invoke<string | null>("choose_folder", { title }),
+  chooseImage: (title: string) => invoke<string | null>("choose_image", { title }),
   listItems: () => invoke<Item[]>("list_items"),
   removeItems: (ids: number[]) => invoke<void>("remove_items", { ids }),
   clearItems: () => invoke<void>("clear_items"),

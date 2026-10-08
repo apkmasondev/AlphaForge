@@ -51,6 +51,8 @@ export type TrimMode = "auto" | "alpha" | "color";
 export type PadUnit = "px" | "percent";
 export type ResizeMode = "percent" | "width" | "height" | "fit" | "fill" | "pad" | "exact";
 export type Filter = "lanczos" | "bicubic" | "bilinear" | "nearest";
+export type BackdropMode = "color" | "gradient" | "blur" | "image";
+export type ImageFit = "cover" | "contain";
 export type SrModel = "general" | "photo" | "illustration";
 
 export type Step =
@@ -60,7 +62,19 @@ export type Step =
   | { type: "resize"; mode: ResizeMode; width: number; height: number; percent: number; filter: Filter; enlarge: boolean; background: Rgba }
   | { type: "upscale"; model: SrModel; scale: number; denoise: number }
   | { type: "enhance"; denoise: number; sharpen: number; autoLevels: boolean }
-  | { type: "background"; color: Rgba };
+  | {
+      type: "background";
+      color: Rgba;
+      mode: BackdropMode;
+      color2: Rgba;
+      angle: number;
+      radial: boolean;
+      blur: number;
+      depth: boolean;
+      dim: number;
+      image: string | null;
+      fit: ImageFit;
+    };
 
 export type StepType = Step["type"];
 export type StepEntry = Step & { id: string; enabled: boolean };
@@ -171,7 +185,7 @@ export interface RuntimeDto {
 
 export interface ModelStatus {
   id: string;
-  kind: "background" | "upscale";
+  kind: "background" | "upscale" | "depth";
   name: string;
   tagline: string;
   family: string;

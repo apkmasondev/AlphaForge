@@ -32,7 +32,7 @@ export const STEP_LABEL: Record<StepType, string> = {
   resize: "Resize",
   upscale: "AI upscale",
   enhance: "Enhance",
-  background: "Fill background",
+  background: "Background",
 };
 
 export const STEP_HINT: Record<StepType, string> = {
@@ -42,7 +42,7 @@ export const STEP_HINT: Record<StepType, string> = {
   resize: "Scale, fit or crop to a size",
   upscale: "Increase resolution 2× or 4× with AI",
   enhance: "Reduce noise, sharpen, fix levels",
-  background: "Replace transparency with a solid color",
+  background: "Colour, gradient, picture or the original background blurred",
 };
 
 let counter = 0;
@@ -68,7 +68,7 @@ export function newStep(type: StepType): StepEntry {
     case "enhance":
       return { ...base, type, denoise: 0, sharpen: 0.3, autoLevels: false };
     case "background":
-      return { ...base, type, color: [255, 255, 255, 255] };
+      return { ...base, type, color: [255, 255, 255, 255], mode: "color", color2: [32, 34, 40, 255], angle: 90, radial: false, blur: 0.5, depth: true, dim: 0, image: null, fit: "cover" };
   }
 }
 
@@ -125,7 +125,16 @@ export function stepSummary(s: Step): string {
       return bits.length ? bits.join(" · ") : t("No changes");
     }
     case "background":
-      return rgbToHex(s.color);
+      switch (s.mode) {
+        case "gradient":
+          return `${t(s.radial ? "Radial gradient" : "Gradient")} ${rgbToHex(s.color)} → ${rgbToHex(s.color2)}`;
+        case "blur":
+          return `${t("Blurred original")} ${Math.round(s.blur * 100)}%${s.depth ? ` · ${t("AI depth")}` : ""}`;
+        case "image":
+          return s.image ? `${t("Picture")} · ${s.image.split(/[\\/]/).pop()}` : t("Picture (none chosen)");
+        default:
+          return rgbToHex(s.color);
+      }
   }
 }
 

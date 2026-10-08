@@ -15,6 +15,9 @@ upscale with AI, convert and compress to PNG / JPG / WebP / AVIF. One pipeline, 
   *Hair & fur* (soft alpha) — optional downloads from the author's official repository. Edge controls
   (shift, feather, hardness), colour decontamination for hair/fur, stray-speck removal, and a brush to
   keep / erase / restore areas.
+* **New background** — solid colour, gradient, your own picture, or the original background blurred.
+  The blur can be *depth-aware* (Depth Anything V2 Small, Apache-2.0, optional 95 MB download): things
+  near the subject stay sharp and the far background melts away, like a fast lens.
 * **Pipelines** — chain Remove background → Trim → Padding → Resize → Upscale → Enhance → Fill → output
   format. Reorder by drag, toggle steps, save as presets. Ten built-in presets (Transparent Asset, Web
   Asset, Website Hero, Thumbnail, Product Photo, Game Texture, PNG Alpha, Small WebP, Upscale 4×, Compress).
@@ -60,5 +63,5 @@ needs driver 528+), then restart.
 
 ## Licence
 
-AlphaForge is MIT licensed. Bundled and downloadable models are MIT (BiRefNet) and BSD-3-Clause
-(Real-ESRGAN) — usable commercially. See `licenses/` in the install folder for all third-party notices.
+AlphaForge is MIT licensed. Bundled and downloadable models are MIT (BiRefNet), BSD-3-Clause
+(Real-ESRGAN) and Apache-2.0 (Depth Anything V2 Small) — usable commercially. See `licenses/` in the install folder for all third-party notices.

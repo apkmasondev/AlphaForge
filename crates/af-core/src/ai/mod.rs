@@ -1,6 +1,7 @@
 //! Local AI: ONNX Runtime sessions, model catalog, background matting and super-resolution.
 
 pub mod catalog;
+pub mod depth;
 pub mod engine;
 pub mod gpupack;
 mod gpupack_data;

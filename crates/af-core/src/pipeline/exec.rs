@@ -7,6 +7,7 @@ use std::time::Instant;
 use serde::Serialize;
 
 use super::{BgModel, PadUnit, Pipeline, ResizeMode, Step, StageCache, TrimMode};
+use crate::ops::backdrop::{self, BackdropMode, ImageFit};
 use crate::ai::catalog::{self, ModelSpec};
 use crate::ai::runtime::{self, Device};
 use crate::ai::{matting, upscale, Engine};
@@ -89,6 +90,10 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
     let mut chain = ctx.item_key;
     let mut reports = Vec::new();
     let mut first_bg = true;
+    // The original pixels behind the subject of the last "Remove background", kept in step with
+    // every geometric change (trim, padding, resize, upscale) so a later "Background: blur" can
+    // show the real background. Its alpha marks valid pixels (0 in added padding).
+    let mut behind: Option<Arc<Rgba>> = None;
     for (i, entry) in p.active().enumerate() {
         ctx.cancel.check()?;
         let t0 = Instant::now();
@@ -129,6 +134,7 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                     }
                 }
                 let tc = Instant::now();
+                behind = Some(Arc::clone(&img));
                 img = Arc::new(mask::compose(&img, &alpha, refine.decontaminate));
                 log::debug!("matte {} ms (cached={}), alpha {} ms, compose {} ms", matte.ms, rep.cached, t_alpha, tc.elapsed().as_millis());
                 if first_bg && !strokes.is_empty() {
@@ -151,7 +157,10 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                     }
                 };
                 match bbox {
-                    Some(r) if r != (Rect { x: 0, y: 0, w: img.width(), h: img.height() }) => img = Arc::new(ops::crop(&img, r)),
+                    Some(r) if r != (Rect { x: 0, y: 0, w: img.width(), h: img.height() }) => {
+                        img = Arc::new(ops::crop(&img, r));
+                        behind = behind.map(|b| Arc::new(ops::crop(&b, r)));
+                    }
                     Some(_) => {}
                     None => rep.note = Some("Nothing to trim — the image is empty.".into()),
                 }
@@ -169,11 +178,15 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                 if t + r + b + l > 0 {
                     check_dims(img.width() + l + r, img.height() + t + b)?;
                     img = Arc::new(ops::pad(&img, t, r, b, l, *color));
+                    behind = behind.map(|bh| Arc::new(ops::pad(&bh, t, r, b, l, [0, 0, 0, 0])));
                 }
             }
             Step::Resize { mode, width, height, percent, filter, enlarge, background } => {
                 if let Some(out) = resize_step(&img, *mode, *width, *height, *percent, *filter, *enlarge, *background)? {
                     img = Arc::new(out);
+                    if let Some(b) = &behind {
+                        behind = resize_step(b, *mode, *width, *height, *percent, *filter, *enlarge, [0, 0, 0, 0])?.map(Arc::new);
+                    }
                 }
             }
             Step::Upscale { model, scale, denoise } => {
@@ -218,11 +231,22 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                     img = Arc::new(ops::sharpen(&img, sharpen.clamp(0.0, 1.0) * 1.5, 1.2));
                 }
             }
-            Step::Background { color } => {
-                if color[3] > 0 && !crate::imageio::is_opaque(&img) {
-                    let rgb = [color[0], color[1], color[2]];
-                    img = Arc::new(crate::imageio::flatten(&img, rgb));
+            Step::Background { color, mode, color2, angle, radial, blur, depth, dim, image, fit } => {
+                let args = BackdropArgs { color: *color, mode: *mode, color2: *color2, angle: *angle, radial: *radial, blur: *blur, depth: *depth, dim: *dim, image: image.as_deref(), fit: *fit };
+                img = apply_backdrop(&img, behind.as_deref(), ctx, chain, args, &mut rep, &progress)?;
+                if *mode != BackdropMode::Color || color[3] == 255 {
+                    behind = None;
                 }
+            }
+        }
+        if let Some(b) = &behind {
+            if b.dimensions() != img.dimensions() {
+                // AI upscale keeps the subject aligned: follow it with a classic resize
+                behind = if matches!(entry.step, Step::Upscale { .. }) {
+                    Some(Arc::new(ops::resize_rgba(b, img.width(), img.height(), ops::Filter::Lanczos)?))
+                } else {
+                    None
+                };
             }
         }
         chain = sh;
@@ -231,6 +255,106 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
         reports.push(rep);
     }
     Ok(RunResult { image: img, reports, partial: false })
+}
+
+struct BackdropArgs<'a> {
+    color: [u8; 4],
+    mode: BackdropMode,
+    color2: [u8; 4],
+    angle: f32,
+    radial: bool,
+    blur: f32,
+    depth: bool,
+    dim: f32,
+    image: Option<&'a str>,
+    fit: ImageFit,
+}
+
+fn apply_backdrop(img: &Arc<Rgba>, behind: Option<&Rgba>, ctx: &ExecContext, chain: u64, a: BackdropArgs, rep: &mut StepReport, progress: &dyn Fn(f32, &str)) -> Result<Arc<Rgba>> {
+    let (w, h) = img.dimensions();
+    let mut bg = match a.mode {
+        BackdropMode::Color => {
+            if a.color[3] == 0 || crate::imageio::is_opaque(img) {
+                return Ok(Arc::clone(img));
+            }
+            if a.color[3] == 255 && a.dim <= 0.0 {
+                return Ok(Arc::new(crate::imageio::flatten(img, [a.color[0], a.color[1], a.color[2]])));
+            }
+            Rgba::from_pixel(w, h, image::Rgba(a.color))
+        }
+        BackdropMode::Gradient => backdrop::gradient(w, h, a.color, a.color2, a.angle, a.radial),
+        BackdropMode::Image => {
+            let path = a.image.filter(|p| !p.is_empty()).ok_or_else(|| Error::Limit("Choose a background picture".into()))?;
+            let path = std::path::Path::new(path);
+            let md = std::fs::metadata(path).map_err(|e| Error::Path(path.to_path_buf(), e.to_string()))?;
+            let mtime = md.modified().ok().and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok()).map(|d| d.as_nanos() as u64).unwrap_or(0);
+            let key = h64(0, &("bgimage", path.to_string_lossy().as_ref(), md.len(), mtime));
+            let pic = match ctx.cache.get_image(key) {
+                Some(p) => p,
+                None => {
+                    progress(0.1, "Loading background picture");
+                    let p = Arc::new(crate::imageio::decode_file(path)?.image);
+                    ctx.cache.put_image(key, 0, Arc::clone(&p));
+                    p
+                }
+            };
+            backdrop::fit_image(&pic, w, h, a.fit, a.color)?
+        }
+        BackdropMode::Blur => {
+            let behind = behind
+                .filter(|b| b.dimensions() == (w, h))
+                .ok_or_else(|| Error::Limit("A blurred original background needs \"Remove background\" earlier in the pipeline.".into()))?;
+            let fkey = h64(chain, &"bgfill");
+            let filled = match ctx.cache.get_image(fkey) {
+                Some(f) => f,
+                None => {
+                    progress(0.1, "Filling in behind the subject");
+                    let f = Arc::new(backdrop::fill_background(behind, img));
+                    ctx.cache.put_image(fkey, ctx.item_key, Arc::clone(&f));
+                    f
+                }
+            };
+            ctx.cancel.check()?;
+            let depth = if a.depth {
+                let dkey = h64(chain, &"depth");
+                let d = match ctx.cache.get_matte(dkey) {
+                    Some(d) => {
+                        rep.cached = true;
+                        d
+                    }
+                    None => {
+                        let spec = crate::ai::depth::spec();
+                        ctx.engine.weights_path(spec.template)?;
+                        let dev = ctx.engine.pick_device(spec).0;
+                        progress(0.3, if ctx.engine.is_loaded(spec.template, dev) { "Estimating depth" } else { "Loading AI model (first use)…" });
+                        let src = backdrop::depth_source(behind, &filled);
+                        let d = Arc::new(crate::ai::depth::predict(ctx.engine, &src, ctx.cancel)?);
+                        ctx.cache.put_matte(dkey, ctx.item_key, Arc::clone(&d));
+                        d
+                    }
+                };
+                rep.device = Some(d.device);
+                rep.model = Some(d.model_id);
+                rep.note = d.note.clone();
+                Some(backdrop::prepare_depth(&crate::ops::resize_f32_plane(&d.alpha, d.w, d.h, w, h, crate::ops::Filter::Bicubic), behind))
+            } else {
+                None
+            };
+            ctx.cancel.check()?;
+            progress(0.7, "Blurring background");
+            let ds = depth.as_ref().map(|d| backdrop::subject_depth(d, img));
+            let mut depth = depth;
+            if let (Some(d), Some(s)) = (depth.as_mut(), ds) {
+                backdrop::push_invented_back(d, behind, s);
+            }
+            backdrop::blur_background(&filled, a.blur, depth.as_deref().zip(ds))
+        }
+    };
+    if a.dim > 0.0 {
+        backdrop::dim(&mut bg, a.dim);
+    }
+    ctx.cancel.check()?;
+    Ok(Arc::new(backdrop::composite(img, &bg)))
 }
 
 fn check_dims(w: u32, h: u32) -> Result<()> {

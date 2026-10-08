@@ -50,6 +50,9 @@ python tools/bundle_weights.py templates birefnet-lite BiRefNet_lite/model.safet
 
 # Real-ESRGAN (downloads the official .pth files, loads them with weights_only=True)
 python tools/build_sr_templates.py templates pth_cache
+
+# Depth Anything V2 Small (needs transformers==4.46.x for the checkpoint's tensor names)
+python tools/build_depth_template.py templates
 ```
 
 Copy `*.onnx`, `*.manifest.json` and the bundled `*.safetensors` (not the `*.bin` blobs) into

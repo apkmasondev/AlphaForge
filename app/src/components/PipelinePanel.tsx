@@ -41,6 +41,7 @@ const ICON: Record<StepType, React.ReactNode> = {
   background: <PaintBucket size={15} />,
 };
 const AI_STEP: Partial<Record<StepType, boolean>> = { removeBackground: true, upscale: true };
+const isAiStep = (s: StepEntry) => !!AI_STEP[s.type] || (s.type === "enhance" && s.denoise > 0) || (s.type === "background" && s.mode === "blur" && s.depth);
 
 function updateStep(id: string, patch: Partial<StepEntry>) {
   const p = S().pipeline;
@@ -139,11 +140,11 @@ function StepCard({ step, index, total, open, toggle, onGrip, dragState }: {
         <span className="step-grip" onPointerDown={(e) => onGrip(e, step.id)} onClick={(e) => e.stopPropagation()} aria-label={t("Drag to reorder")} data-tip={t("Drag to reorder")}>
           <GripVertical size={14} />
         </span>
-        <span className={`step-icon${AI_STEP[step.type] || (step.type === "enhance" && step.denoise > 0) ? " ai" : ""}`}>{ICON[step.type]}</span>
+        <span className={`step-icon${isAiStep(step) ? " ai" : ""}`}>{ICON[step.type]}</span>
         <span style={{ minWidth: 0 }}>
           <div className="step-title">
             {stepLabel(step.type)}
-            {AI_STEP[step.type] && <span className="badge accent" style={{ height: 16, fontSize: 10 }}>AI</span>}
+            {isAiStep(step) && <span className="badge accent" style={{ height: 16, fontSize: 10 }}>AI</span>}
           </div>
           <div className="step-sum ellipsis">{stepSummary(step)}</div>
         </span>

@@ -396,6 +396,7 @@ export async function startExport(ids?: number[]) {
   const needed = s.pipeline.steps
     .filter((x) => x.enabled && x.type === "removeBackground" && (x.model === "quality" || x.model === "hair"))
     .map((x): string => (x.type === "removeBackground" && x.model === "hair" ? "bg-hair" : "bg-quality"));
+  if (s.pipeline.steps.some((x) => x.enabled && x.type === "background" && x.mode === "blur" && x.depth)) needed.push("depth");
   const missing = s.models.find((m) => needed.includes(m.id) && !m.installed);
   if (missing) {
     toast({

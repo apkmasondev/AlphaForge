@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 use crate::ai::upscale::SrModel;
 use crate::imageio::{EncodeOptions, Format};
 use crate::mask::Refine;
+use crate::ops::backdrop::{BackdropMode, ImageFit};
 use crate::ops::Filter;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
@@ -143,12 +144,47 @@ pub enum Step {
         #[serde(default)]
         auto_levels: bool,
     },
+    /// Put something behind the (cut-out) image: a colour, a gradient, a picture, or the
+    /// original background blurred.
     Background {
-        /// Replace transparency with this color.
+        /// Colour mode: the colour. Gradient: start colour. Picture (fit = contain): border colour.
         color: [u8; 4],
+        #[serde(default)]
+        mode: BackdropMode,
+        /// Gradient end colour.
+        #[serde(default = "default_color2")]
+        color2: [u8; 4],
+        /// Gradient direction in degrees (0 = left to right, 90 = top to bottom).
+        #[serde(default = "default_angle")]
+        angle: f32,
+        #[serde(default)]
+        radial: bool,
+        /// Blur strength 0..=1 (mode = blur).
+        #[serde(default = "default_blur")]
+        blur: f32,
+        /// Depth-aware blur with the AI depth model (mode = blur).
+        #[serde(default)]
+        depth: bool,
+        /// Darken the new background 0..=1.
+        #[serde(default)]
+        dim: f32,
+        /// Picture file (mode = image).
+        #[serde(default)]
+        image: Option<String>,
+        #[serde(default)]
+        fit: ImageFit,
     },
 }
 
+fn default_color2() -> [u8; 4] {
+    [32, 34, 40, 255]
+}
+fn default_angle() -> f32 {
+    90.0
+}
+fn default_blur() -> f32 {
+    0.5
+}
 fn default_trim_threshold() -> u8 {
     8
 }
@@ -183,12 +219,14 @@ impl Step {
             Step::Resize { .. } => "Resize",
             Step::Upscale { .. } => "AI upscale",
             Step::Enhance { .. } => "Enhance",
-            Step::Background { .. } => "Fill background",
+            Step::Background { .. } => "Background",
         }
     }
 
     pub fn is_ai(&self) -> bool {
-        matches!(self, Step::RemoveBackground { .. } | Step::Upscale { .. }) || matches!(self, Step::Enhance { denoise, .. } if *denoise > 0.0)
+        matches!(self, Step::RemoveBackground { .. } | Step::Upscale { .. })
+            || matches!(self, Step::Enhance { denoise, .. } if *denoise > 0.0)
+            || matches!(self, Step::Background { mode: BackdropMode::Blur, depth: true, .. })
     }
 }
 
@@ -293,7 +331,13 @@ impl Pipeline {
                     makes_alpha = true;
                     filled = false;
                 }
-                Step::Background { color } if color[3] == 255 => filled = true,
+                Step::Background { mode, color, color2, .. } => {
+                    filled = match mode {
+                        BackdropMode::Color => color[3] == 255,
+                        BackdropMode::Gradient => color[3] == 255 && color2[3] == 255,
+                        BackdropMode::Blur | BackdropMode::Image => true,
+                    } || filled;
+                }
                 _ => {}
             }
         }
@@ -309,6 +353,12 @@ impl Pipeline {
         if let (Some(b), Some(u)) = (bg_idx, up_idx) {
             if u < b {
                 w.push("Removing the background after upscaling is slower and not more accurate. Consider moving \"AI upscale\" below \"Remove background\".".into());
+            }
+        }
+        let blur_idx = self.active().position(|s| matches!(s.step, Step::Background { mode: BackdropMode::Blur, .. }));
+        if let Some(b) = blur_idx {
+            if bg_idx.is_none_or(|r| r > b) {
+                w.push("A blurred original background needs \"Remove background\" earlier in the pipeline.".into());
             }
         }
         if self.active().filter(|s| matches!(s.step, Step::RemoveBackground { .. })).count() > 1 {

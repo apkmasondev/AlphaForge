@@ -116,6 +116,14 @@ pub async fn choose_folder(app: AppHandle, title: String) -> CmdResult<Option<St
     Ok(picked.and_then(|p| p.into_path().ok()).map(|p| p.to_string_lossy().into_owned()))
 }
 
+/// Pick one picture (used as a new background).
+#[tauri::command]
+pub async fn choose_image(app: AppHandle, title: String) -> CmdResult<Option<String>> {
+    let a2 = app.clone();
+    let picked = tauri::async_runtime::spawn_blocking(move || a2.dialog().file().set_title(title).add_filter("Images", items::EXTENSIONS).blocking_pick_file()).await.map_err(err)?;
+    Ok(picked.and_then(|p| p.into_path().ok()).map(|p| p.to_string_lossy().into_owned()))
+}
+
 #[tauri::command]
 pub fn list_items(state: State<AppState>) -> Vec<ItemDto> {
     let items = state.items.read();

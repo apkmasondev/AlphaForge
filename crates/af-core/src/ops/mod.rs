@@ -1,5 +1,6 @@
 //! Fast classic (non-AI) image operations on RGBA8 sRGB images.
 
+pub mod backdrop;
 pub mod quantize;
 mod resize;
 

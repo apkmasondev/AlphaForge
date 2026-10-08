@@ -1,0 +1,6621 @@
+{
+ "format": 1,
+ "name": "depth-anything-v2-small",
+ "arch": "depth-anything-v2",
+ "input": {
+  "name": "input",
+  "size": [
+   518,
+   518
+  ],
+  "mean": [
+   0.485,
+   0.456,
+   0.406
+  ],
+  "std": [
+   0.229,
+   0.224,
+   0.225
+  ]
+ },
+ "output": {
+  "name": "output"
+ },
+ "source": {
+  "url": "https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf/resolve/5426e4f0f36572d16453bbda7a8389317b1bef99/model.safetensors",
+  "sha256": "3152477ce0d8d6978d76b995120de97cb5b928701fd0f817769f59e249a16b70",
+  "size": 99173660,
+  "provenance": {
+   "repo": "depth-anything/Depth-Anything-V2-Small-hf",
+   "revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+   "license": "Apache-2.0"
+  }
+ },
+ "variants": {
+  "fp32": {
+   "blob": "depth-anything-v2-small.fp32.bin",
+   "blob_size": 98843396,
+   "tensors": [
+    {
+     "name": "net.backbone.embeddings.cls_token",
+     "src": "backbone.embeddings.cls_token",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1,
+      1,
+      384
+     ],
+     "offset": 0,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.embeddings.position_embeddings",
+     "src": "backbone.embeddings.position_embeddings",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1,
+      1370,
+      384
+     ],
+     "offset": 1536,
+     "nbytes": 2104320
+    },
+    {
+     "name": "net.backbone.embeddings.patch_embeddings.projection.weight",
+     "src": "backbone.embeddings.patch_embeddings.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      3,
+      14,
+      14
+     ],
+     "offset": 2105856,
+     "nbytes": 903168
+    },
+    {
+     "name": "net.backbone.embeddings.patch_embeddings.projection.bias",
+     "src": "backbone.embeddings.patch_embeddings.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 3009024,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm1.weight",
+     "src": "backbone.encoder.layer.0.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 3010560,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm1.bias",
+     "src": "backbone.encoder.layer.0.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 3012096,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.0.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 3013632,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.0.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 3603456,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.0.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 3604992,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.0.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 4194816,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.0.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 4196352,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.0.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 4786176,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.0.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 4787712,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.0.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 5377536,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.0.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 5379072,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm2.weight",
+     "src": "backbone.encoder.layer.0.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 5380608,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm2.bias",
+     "src": "backbone.encoder.layer.0.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 5382144,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.0.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 5383680,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.0.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 7742976,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.0.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 7749120,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.0.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 10108416,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.0.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 10109952,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm1.weight",
+     "src": "backbone.encoder.layer.1.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 10111488,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm1.bias",
+     "src": "backbone.encoder.layer.1.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 10113024,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.1.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 10114560,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.1.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 10704384,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.1.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 10705920,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.1.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 11295744,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.1.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 11297280,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.1.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 11887104,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.1.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 11888640,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.1.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 12478464,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.1.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 12480000,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm2.weight",
+     "src": "backbone.encoder.layer.1.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 12481536,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm2.bias",
+     "src": "backbone.encoder.layer.1.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 12483072,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.1.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 12484608,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.1.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 14843904,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.1.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 14850048,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.1.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 17209344,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.1.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 17210880,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm1.weight",
+     "src": "backbone.encoder.layer.2.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 17212416,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm1.bias",
+     "src": "backbone.encoder.layer.2.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 17213952,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.2.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 17215488,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.2.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 17805312,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.2.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 17806848,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.2.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 18396672,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.2.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 18398208,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.2.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 18988032,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.2.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 18989568,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.2.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 19579392,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.2.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 19580928,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm2.weight",
+     "src": "backbone.encoder.layer.2.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 19582464,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm2.bias",
+     "src": "backbone.encoder.layer.2.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 19584000,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.2.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 19585536,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.2.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 21944832,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.2.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 21950976,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.2.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 24310272,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.2.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 24311808,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm1.weight",
+     "src": "backbone.encoder.layer.3.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 24313344,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm1.bias",
+     "src": "backbone.encoder.layer.3.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 24314880,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.3.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 24316416,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.3.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 24906240,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.3.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 24907776,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.3.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 25497600,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.3.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 25499136,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.3.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 26088960,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.3.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 26090496,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.3.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 26680320,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.3.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 26681856,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm2.weight",
+     "src": "backbone.encoder.layer.3.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 26683392,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm2.bias",
+     "src": "backbone.encoder.layer.3.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 26684928,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.3.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 26686464,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.3.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 29045760,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.3.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 29051904,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.3.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 31411200,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.3.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 31412736,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm1.weight",
+     "src": "backbone.encoder.layer.4.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 31414272,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm1.bias",
+     "src": "backbone.encoder.layer.4.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 31415808,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.4.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 31417344,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.4.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 32007168,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.4.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 32008704,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.4.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 32598528,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.4.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 32600064,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.4.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 33189888,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.4.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 33191424,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.4.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 33781248,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.4.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 33782784,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm2.weight",
+     "src": "backbone.encoder.layer.4.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 33784320,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm2.bias",
+     "src": "backbone.encoder.layer.4.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 33785856,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.4.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 33787392,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.4.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 36146688,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.4.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 36152832,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.4.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 38512128,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.4.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 38513664,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm1.weight",
+     "src": "backbone.encoder.layer.5.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 38515200,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm1.bias",
+     "src": "backbone.encoder.layer.5.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 38516736,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.5.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 38518272,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.5.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 39108096,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.5.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 39109632,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.5.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 39699456,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.5.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 39700992,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.5.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 40290816,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.5.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 40292352,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.5.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 40882176,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.5.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 40883712,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm2.weight",
+     "src": "backbone.encoder.layer.5.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 40885248,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm2.bias",
+     "src": "backbone.encoder.layer.5.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 40886784,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.5.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 40888320,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.5.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 43247616,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.5.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 43253760,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.5.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 45613056,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.5.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 45614592,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm1.weight",
+     "src": "backbone.encoder.layer.6.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 45616128,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm1.bias",
+     "src": "backbone.encoder.layer.6.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 45617664,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.6.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 45619200,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.6.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 46209024,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.6.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 46210560,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.6.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 46800384,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.6.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 46801920,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.6.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 47391744,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.6.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 47393280,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.6.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 47983104,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.6.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 47984640,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm2.weight",
+     "src": "backbone.encoder.layer.6.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 47986176,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm2.bias",
+     "src": "backbone.encoder.layer.6.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 47987712,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.6.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 47989248,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.6.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 50348544,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.6.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 50354688,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.6.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 52713984,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.6.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 52715520,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm1.weight",
+     "src": "backbone.encoder.layer.7.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 52717056,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm1.bias",
+     "src": "backbone.encoder.layer.7.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 52718592,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.7.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 52720128,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.7.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 53309952,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.7.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 53311488,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.7.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 53901312,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.7.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 53902848,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.7.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 54492672,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.7.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 54494208,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.7.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 55084032,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.7.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 55085568,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm2.weight",
+     "src": "backbone.encoder.layer.7.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 55087104,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm2.bias",
+     "src": "backbone.encoder.layer.7.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 55088640,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.7.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 55090176,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.7.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 57449472,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.7.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 57455616,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.7.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 59814912,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.7.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 59816448,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm1.weight",
+     "src": "backbone.encoder.layer.8.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 59817984,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm1.bias",
+     "src": "backbone.encoder.layer.8.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 59819520,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.8.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 59821056,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.8.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 60410880,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.8.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 60412416,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.8.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 61002240,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.8.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 61003776,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.8.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 61593600,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.8.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 61595136,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.8.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 62184960,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.8.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 62186496,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm2.weight",
+     "src": "backbone.encoder.layer.8.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 62188032,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm2.bias",
+     "src": "backbone.encoder.layer.8.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 62189568,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.8.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 62191104,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.8.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 64550400,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.8.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 64556544,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.8.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 66915840,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.8.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 66917376,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm1.weight",
+     "src": "backbone.encoder.layer.9.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 66918912,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm1.bias",
+     "src": "backbone.encoder.layer.9.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 66920448,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.9.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 66921984,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.9.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 67511808,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.9.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 67513344,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.9.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 68103168,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.9.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 68104704,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.9.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 68694528,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.9.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 68696064,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.9.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 69285888,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.9.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 69287424,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm2.weight",
+     "src": "backbone.encoder.layer.9.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 69288960,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm2.bias",
+     "src": "backbone.encoder.layer.9.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 69290496,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.9.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 69292032,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.9.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 71651328,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.9.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 71657472,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.9.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 74016768,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.9.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 74018304,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm1.weight",
+     "src": "backbone.encoder.layer.10.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 74019840,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm1.bias",
+     "src": "backbone.encoder.layer.10.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 74021376,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.10.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 74022912,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.10.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 74612736,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.10.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 74614272,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.10.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 75204096,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.10.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 75205632,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.10.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 75795456,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.10.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 75796992,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.10.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 76386816,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.10.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 76388352,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm2.weight",
+     "src": "backbone.encoder.layer.10.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 76389888,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm2.bias",
+     "src": "backbone.encoder.layer.10.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 76391424,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.10.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 76392960,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.10.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 78752256,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.10.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 78758400,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.10.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 81117696,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.10.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 81119232,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm1.weight",
+     "src": "backbone.encoder.layer.11.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 81120768,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm1.bias",
+     "src": "backbone.encoder.layer.11.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 81122304,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.11.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 81123840,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.11.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 81713664,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.11.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 81715200,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.11.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 82305024,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.11.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 82306560,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.11.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 82896384,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.11.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 82897920,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.11.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 83487744,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.11.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 83489280,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm2.weight",
+     "src": "backbone.encoder.layer.11.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 83490816,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm2.bias",
+     "src": "backbone.encoder.layer.11.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 83492352,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.11.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 83493888,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.11.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1536
+     ],
+     "offset": 85853184,
+     "nbytes": 6144
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.11.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 85859328,
+     "nbytes": 2359296
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.11.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 88218624,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.11.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 88220160,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.layernorm.weight",
+     "src": "backbone.layernorm.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 88221696,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.backbone.layernorm.bias",
+     "src": "backbone.layernorm.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 88223232,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.projection.weight",
+     "src": "neck.reassemble_stage.layers.0.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      48,
+      384,
+      1,
+      1
+     ],
+     "offset": 88224768,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.projection.bias",
+     "src": "neck.reassemble_stage.layers.0.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      48
+     ],
+     "offset": 88298496,
+     "nbytes": 192
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.resize.weight",
+     "src": "neck.reassemble_stage.layers.0.resize.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      48,
+      48,
+      4,
+      4
+     ],
+     "offset": 88298688,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.resize.bias",
+     "src": "neck.reassemble_stage.layers.0.resize.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      48
+     ],
+     "offset": 88446144,
+     "nbytes": 192
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.projection.weight",
+     "src": "neck.reassemble_stage.layers.1.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      96,
+      384,
+      1,
+      1
+     ],
+     "offset": 88446336,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.projection.bias",
+     "src": "neck.reassemble_stage.layers.1.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      96
+     ],
+     "offset": 88593792,
+     "nbytes": 384
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.resize.weight",
+     "src": "neck.reassemble_stage.layers.1.resize.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      96,
+      96,
+      2,
+      2
+     ],
+     "offset": 88594176,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.resize.bias",
+     "src": "neck.reassemble_stage.layers.1.resize.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      96
+     ],
+     "offset": 88741632,
+     "nbytes": 384
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.2.projection.weight",
+     "src": "neck.reassemble_stage.layers.2.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      192,
+      384,
+      1,
+      1
+     ],
+     "offset": 88742016,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.2.projection.bias",
+     "src": "neck.reassemble_stage.layers.2.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      192
+     ],
+     "offset": 89036928,
+     "nbytes": 768
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.projection.weight",
+     "src": "neck.reassemble_stage.layers.3.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384,
+      1,
+      1
+     ],
+     "offset": 89037696,
+     "nbytes": 589824
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.projection.bias",
+     "src": "neck.reassemble_stage.layers.3.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 89627520,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.resize.weight",
+     "src": "neck.reassemble_stage.layers.3.resize.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384,
+      384,
+      3,
+      3
+     ],
+     "offset": 89629056,
+     "nbytes": 5308416
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.resize.bias",
+     "src": "neck.reassemble_stage.layers.3.resize.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      384
+     ],
+     "offset": 94937472,
+     "nbytes": 1536
+    },
+    {
+     "name": "net.neck.convs.0.weight",
+     "src": "neck.convs.0.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      48,
+      3,
+      3
+     ],
+     "offset": 94939008,
+     "nbytes": 110592
+    },
+    {
+     "name": "net.neck.convs.1.weight",
+     "src": "neck.convs.1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      96,
+      3,
+      3
+     ],
+     "offset": 95049600,
+     "nbytes": 221184
+    },
+    {
+     "name": "net.neck.convs.2.weight",
+     "src": "neck.convs.2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      192,
+      3,
+      3
+     ],
+     "offset": 95270784,
+     "nbytes": 442368
+    },
+    {
+     "name": "net.neck.convs.3.weight",
+     "src": "neck.convs.3.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      384,
+      3,
+      3
+     ],
+     "offset": 95713152,
+     "nbytes": 884736
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.projection.weight",
+     "src": "neck.fusion_stage.layers.0.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 96597888,
+     "nbytes": 16384
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.projection.bias",
+     "src": "neck.fusion_stage.layers.0.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 96614272,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 96614528,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 96761984,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 96762240,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 96909696,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.projection.weight",
+     "src": "neck.fusion_stage.layers.1.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 96909952,
+     "nbytes": 16384
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.projection.bias",
+     "src": "neck.fusion_stage.layers.1.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 96926336,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution1.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 96926592,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution1.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97074048,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution2.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97074304,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution2.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97221760,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97222016,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97369472,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97369728,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97517184,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.projection.weight",
+     "src": "neck.fusion_stage.layers.2.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 97517440,
+     "nbytes": 16384
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.projection.bias",
+     "src": "neck.fusion_stage.layers.2.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97533824,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution1.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97534080,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution1.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97681536,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution2.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97681792,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution2.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97829248,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97829504,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 97976960,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 97977216,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 98124672,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.projection.weight",
+     "src": "neck.fusion_stage.layers.3.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 98124928,
+     "nbytes": 16384
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.projection.bias",
+     "src": "neck.fusion_stage.layers.3.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 98141312,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution1.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 98141568,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution1.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 98289024,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution2.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 98289280,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution2.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 98436736,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 98436992,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 98584448,
+     "nbytes": 256
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 98584704,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      64
+     ],
+     "offset": 98732160,
+     "nbytes": 256
+    },
+    {
+     "name": "net.head.conv1.weight",
+     "src": "head.conv1.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      32,
+      64,
+      3,
+      3
+     ],
+     "offset": 98732416,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.head.conv1.bias",
+     "src": "head.conv1.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      32
+     ],
+     "offset": 98806144,
+     "nbytes": 128
+    },
+    {
+     "name": "net.head.conv2.weight",
+     "src": "head.conv2.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      32,
+      32,
+      3,
+      3
+     ],
+     "offset": 98806272,
+     "nbytes": 36864
+    },
+    {
+     "name": "net.head.conv2.bias",
+     "src": "head.conv2.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      32
+     ],
+     "offset": 98843136,
+     "nbytes": 128
+    },
+    {
+     "name": "net.head.conv3.weight",
+     "src": "head.conv3.weight",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1,
+      32,
+      1,
+      1
+     ],
+     "offset": 98843264,
+     "nbytes": 128
+    },
+    {
+     "name": "net.head.conv3.bias",
+     "src": "head.conv3.bias",
+     "src_dtype": "f32",
+     "dtype": "f32",
+     "shape": [
+      1
+     ],
+     "offset": 98843392,
+     "nbytes": 4
+    }
+   ],
+   "inline_initializers": 0,
+   "inline_bytes": 0,
+   "blob_sha256": "7190e90db710d587e3dd5fed0465f4a037cfdb7954f51ff776d53baf831be565",
+   "graph_sha256": "d6208b96a1f1258a8e0ffcc9ce3cf8969de12c4f7b47191b0c9d2c726c725858",
+   "max_abs_err_vs_torch": 4.5299530029296875e-06,
+   "ref_range": [
+    2.1274566650390625,
+    4.049521446228027
+   ]
+  },
+  "fp16": {
+   "blob": "depth-anything-v2-small.fp16.bin",
+   "blob_size": 49421762,
+   "tensors": [
+    {
+     "name": "net.backbone.embeddings.cls_token",
+     "src": "backbone.embeddings.cls_token",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1,
+      1,
+      384
+     ],
+     "offset": 0,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.embeddings.position_embeddings",
+     "src": "backbone.embeddings.position_embeddings",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1,
+      1370,
+      384
+     ],
+     "offset": 768,
+     "nbytes": 1052160
+    },
+    {
+     "name": "net.backbone.embeddings.patch_embeddings.projection.weight",
+     "src": "backbone.embeddings.patch_embeddings.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      3,
+      14,
+      14
+     ],
+     "offset": 1052928,
+     "nbytes": 451584
+    },
+    {
+     "name": "net.backbone.embeddings.patch_embeddings.projection.bias",
+     "src": "backbone.embeddings.patch_embeddings.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 1504512,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm1.weight",
+     "src": "backbone.encoder.layer.0.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 1505280,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm1.bias",
+     "src": "backbone.encoder.layer.0.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 1506048,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.0.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 1506816,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.0.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 1801728,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.0.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 1802496,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.0.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 2097408,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.0.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 2098176,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.0.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 2393088,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.0.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 2393856,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.0.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 2688768,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.0.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 2689536,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm2.weight",
+     "src": "backbone.encoder.layer.0.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 2690304,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.norm2.bias",
+     "src": "backbone.encoder.layer.0.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 2691072,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.0.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 2691840,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.0.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 3871488,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.0.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 3874560,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.0.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5054208,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.0.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.0.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5054976,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm1.weight",
+     "src": "backbone.encoder.layer.1.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5055744,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm1.bias",
+     "src": "backbone.encoder.layer.1.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5056512,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.1.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 5057280,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.1.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5352192,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.1.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 5352960,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.1.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5647872,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.1.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 5648640,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.1.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 5943552,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.1.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 5944320,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.1.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 6239232,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.1.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 6240000,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm2.weight",
+     "src": "backbone.encoder.layer.1.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 6240768,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.norm2.bias",
+     "src": "backbone.encoder.layer.1.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 6241536,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.1.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 6242304,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.1.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 7421952,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.1.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 7425024,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.1.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 8604672,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.1.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.1.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 8605440,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm1.weight",
+     "src": "backbone.encoder.layer.2.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 8606208,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm1.bias",
+     "src": "backbone.encoder.layer.2.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 8606976,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.2.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 8607744,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.2.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 8902656,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.2.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 8903424,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.2.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 9198336,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.2.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 9199104,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.2.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 9494016,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.2.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 9494784,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.2.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 9789696,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.2.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 9790464,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm2.weight",
+     "src": "backbone.encoder.layer.2.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 9791232,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.norm2.bias",
+     "src": "backbone.encoder.layer.2.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 9792000,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.2.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 9792768,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.2.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 10972416,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.2.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 10975488,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.2.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 12155136,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.2.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.2.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 12155904,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm1.weight",
+     "src": "backbone.encoder.layer.3.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 12156672,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm1.bias",
+     "src": "backbone.encoder.layer.3.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 12157440,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.3.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 12158208,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.3.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 12453120,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.3.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 12453888,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.3.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 12748800,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.3.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 12749568,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.3.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 13044480,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.3.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 13045248,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.3.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 13340160,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.3.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 13340928,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm2.weight",
+     "src": "backbone.encoder.layer.3.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 13341696,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.norm2.bias",
+     "src": "backbone.encoder.layer.3.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 13342464,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.3.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 13343232,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.3.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 14522880,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.3.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 14525952,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.3.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 15705600,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.3.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.3.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 15706368,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm1.weight",
+     "src": "backbone.encoder.layer.4.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 15707136,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm1.bias",
+     "src": "backbone.encoder.layer.4.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 15707904,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.4.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 15708672,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.4.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16003584,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.4.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 16004352,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.4.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16299264,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.4.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 16300032,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.4.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16594944,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.4.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 16595712,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.4.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16890624,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.4.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16891392,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm2.weight",
+     "src": "backbone.encoder.layer.4.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16892160,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.norm2.bias",
+     "src": "backbone.encoder.layer.4.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 16892928,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.4.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 16893696,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.4.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 18073344,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.4.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 18076416,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.4.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 19256064,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.4.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.4.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 19256832,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm1.weight",
+     "src": "backbone.encoder.layer.5.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 19257600,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm1.bias",
+     "src": "backbone.encoder.layer.5.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 19258368,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.5.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 19259136,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.5.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 19554048,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.5.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 19554816,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.5.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 19849728,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.5.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 19850496,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.5.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 20145408,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.5.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 20146176,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.5.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 20441088,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.5.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 20441856,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm2.weight",
+     "src": "backbone.encoder.layer.5.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 20442624,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.norm2.bias",
+     "src": "backbone.encoder.layer.5.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 20443392,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.5.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 20444160,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.5.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 21623808,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.5.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 21626880,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.5.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 22806528,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.5.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.5.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 22807296,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm1.weight",
+     "src": "backbone.encoder.layer.6.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 22808064,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm1.bias",
+     "src": "backbone.encoder.layer.6.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 22808832,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.6.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 22809600,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.6.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23104512,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.6.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 23105280,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.6.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23400192,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.6.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 23400960,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.6.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23695872,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.6.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 23696640,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.6.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23991552,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.6.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23992320,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm2.weight",
+     "src": "backbone.encoder.layer.6.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23993088,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.norm2.bias",
+     "src": "backbone.encoder.layer.6.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 23993856,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.6.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 23994624,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.6.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 25174272,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.6.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 25177344,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.6.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 26356992,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.6.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.6.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 26357760,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm1.weight",
+     "src": "backbone.encoder.layer.7.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 26358528,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm1.bias",
+     "src": "backbone.encoder.layer.7.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 26359296,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.7.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 26360064,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.7.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 26654976,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.7.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 26655744,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.7.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 26950656,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.7.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 26951424,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.7.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 27246336,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.7.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 27247104,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.7.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 27542016,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.7.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 27542784,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm2.weight",
+     "src": "backbone.encoder.layer.7.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 27543552,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.norm2.bias",
+     "src": "backbone.encoder.layer.7.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 27544320,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.7.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 27545088,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.7.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 28724736,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.7.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 28727808,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.7.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 29907456,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.7.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.7.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 29908224,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm1.weight",
+     "src": "backbone.encoder.layer.8.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 29908992,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm1.bias",
+     "src": "backbone.encoder.layer.8.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 29909760,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.8.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 29910528,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.8.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 30205440,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.8.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 30206208,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.8.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 30501120,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.8.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 30501888,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.8.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 30796800,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.8.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 30797568,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.8.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 31092480,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.8.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 31093248,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm2.weight",
+     "src": "backbone.encoder.layer.8.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 31094016,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.norm2.bias",
+     "src": "backbone.encoder.layer.8.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 31094784,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.8.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 31095552,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.8.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 32275200,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.8.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 32278272,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.8.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 33457920,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.8.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.8.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 33458688,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm1.weight",
+     "src": "backbone.encoder.layer.9.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 33459456,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm1.bias",
+     "src": "backbone.encoder.layer.9.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 33460224,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.9.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 33460992,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.9.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 33755904,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.9.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 33756672,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.9.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 34051584,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.9.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 34052352,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.9.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 34347264,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.9.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 34348032,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.9.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 34642944,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.9.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 34643712,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm2.weight",
+     "src": "backbone.encoder.layer.9.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 34644480,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.norm2.bias",
+     "src": "backbone.encoder.layer.9.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 34645248,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.9.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 34646016,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.9.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 35825664,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.9.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 35828736,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.9.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37008384,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.9.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.9.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37009152,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm1.weight",
+     "src": "backbone.encoder.layer.10.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37009920,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm1.bias",
+     "src": "backbone.encoder.layer.10.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37010688,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.10.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 37011456,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.10.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37306368,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.10.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 37307136,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.10.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37602048,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.10.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 37602816,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.10.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 37897728,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.10.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 37898496,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.10.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 38193408,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.10.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 38194176,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm2.weight",
+     "src": "backbone.encoder.layer.10.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 38194944,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.norm2.bias",
+     "src": "backbone.encoder.layer.10.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 38195712,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.10.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 38196480,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.10.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 39376128,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.10.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 39379200,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.10.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 40558848,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.10.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.10.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 40559616,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm1.weight",
+     "src": "backbone.encoder.layer.11.norm1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 40560384,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm1.bias",
+     "src": "backbone.encoder.layer.11.norm1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 40561152,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.query.weight",
+     "src": "backbone.encoder.layer.11.attention.attention.query.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 40561920,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.query.bias",
+     "src": "backbone.encoder.layer.11.attention.attention.query.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 40856832,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.key.weight",
+     "src": "backbone.encoder.layer.11.attention.attention.key.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 40857600,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.key.bias",
+     "src": "backbone.encoder.layer.11.attention.attention.key.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 41152512,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.value.weight",
+     "src": "backbone.encoder.layer.11.attention.attention.value.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 41153280,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.attention.value.bias",
+     "src": "backbone.encoder.layer.11.attention.attention.value.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 41448192,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.output.dense.weight",
+     "src": "backbone.encoder.layer.11.attention.output.dense.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384
+     ],
+     "offset": 41448960,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.attention.output.dense.bias",
+     "src": "backbone.encoder.layer.11.attention.output.dense.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 41743872,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.layer_scale1.lambda1",
+     "src": "backbone.encoder.layer.11.layer_scale1.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 41744640,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm2.weight",
+     "src": "backbone.encoder.layer.11.norm2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 41745408,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.norm2.bias",
+     "src": "backbone.encoder.layer.11.norm2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 41746176,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc1.weight",
+     "src": "backbone.encoder.layer.11.mlp.fc1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536,
+      384
+     ],
+     "offset": 41746944,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc1.bias",
+     "src": "backbone.encoder.layer.11.mlp.fc1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1536
+     ],
+     "offset": 42926592,
+     "nbytes": 3072
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc2.weight",
+     "src": "backbone.encoder.layer.11.mlp.fc2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      1536
+     ],
+     "offset": 42929664,
+     "nbytes": 1179648
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.mlp.fc2.bias",
+     "src": "backbone.encoder.layer.11.mlp.fc2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 44109312,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.encoder.layer.11.layer_scale2.lambda1",
+     "src": "backbone.encoder.layer.11.layer_scale2.lambda1",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 44110080,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.layernorm.weight",
+     "src": "backbone.layernorm.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 44110848,
+     "nbytes": 768
+    },
+    {
+     "name": "net.backbone.layernorm.bias",
+     "src": "backbone.layernorm.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 44111616,
+     "nbytes": 768
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.projection.weight",
+     "src": "neck.reassemble_stage.layers.0.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      48,
+      384,
+      1,
+      1
+     ],
+     "offset": 44112384,
+     "nbytes": 36864
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.projection.bias",
+     "src": "neck.reassemble_stage.layers.0.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      48
+     ],
+     "offset": 44149248,
+     "nbytes": 96
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.resize.weight",
+     "src": "neck.reassemble_stage.layers.0.resize.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      48,
+      48,
+      4,
+      4
+     ],
+     "offset": 44149376,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.0.resize.bias",
+     "src": "neck.reassemble_stage.layers.0.resize.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      48
+     ],
+     "offset": 44223104,
+     "nbytes": 96
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.projection.weight",
+     "src": "neck.reassemble_stage.layers.1.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      96,
+      384,
+      1,
+      1
+     ],
+     "offset": 44223232,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.projection.bias",
+     "src": "neck.reassemble_stage.layers.1.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      96
+     ],
+     "offset": 44296960,
+     "nbytes": 192
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.resize.weight",
+     "src": "neck.reassemble_stage.layers.1.resize.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      96,
+      96,
+      2,
+      2
+     ],
+     "offset": 44297152,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.1.resize.bias",
+     "src": "neck.reassemble_stage.layers.1.resize.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      96
+     ],
+     "offset": 44370880,
+     "nbytes": 192
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.2.projection.weight",
+     "src": "neck.reassemble_stage.layers.2.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      192,
+      384,
+      1,
+      1
+     ],
+     "offset": 44371072,
+     "nbytes": 147456
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.2.projection.bias",
+     "src": "neck.reassemble_stage.layers.2.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      192
+     ],
+     "offset": 44518528,
+     "nbytes": 384
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.projection.weight",
+     "src": "neck.reassemble_stage.layers.3.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384,
+      1,
+      1
+     ],
+     "offset": 44518912,
+     "nbytes": 294912
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.projection.bias",
+     "src": "neck.reassemble_stage.layers.3.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 44813824,
+     "nbytes": 768
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.resize.weight",
+     "src": "neck.reassemble_stage.layers.3.resize.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384,
+      384,
+      3,
+      3
+     ],
+     "offset": 44814592,
+     "nbytes": 2654208
+    },
+    {
+     "name": "net.neck.reassemble_stage.layers.3.resize.bias",
+     "src": "neck.reassemble_stage.layers.3.resize.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      384
+     ],
+     "offset": 47468800,
+     "nbytes": 768
+    },
+    {
+     "name": "net.neck.convs.0.weight",
+     "src": "neck.convs.0.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      48,
+      3,
+      3
+     ],
+     "offset": 47469568,
+     "nbytes": 55296
+    },
+    {
+     "name": "net.neck.convs.1.weight",
+     "src": "neck.convs.1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      96,
+      3,
+      3
+     ],
+     "offset": 47524864,
+     "nbytes": 110592
+    },
+    {
+     "name": "net.neck.convs.2.weight",
+     "src": "neck.convs.2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      192,
+      3,
+      3
+     ],
+     "offset": 47635456,
+     "nbytes": 221184
+    },
+    {
+     "name": "net.neck.convs.3.weight",
+     "src": "neck.convs.3.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      384,
+      3,
+      3
+     ],
+     "offset": 47856640,
+     "nbytes": 442368
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.projection.weight",
+     "src": "neck.fusion_stage.layers.0.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 48299008,
+     "nbytes": 8192
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.projection.bias",
+     "src": "neck.fusion_stage.layers.0.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48307200,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48307328,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48381056,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48381184,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.0.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.0.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48454912,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.projection.weight",
+     "src": "neck.fusion_stage.layers.1.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 48455040,
+     "nbytes": 8192
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.projection.bias",
+     "src": "neck.fusion_stage.layers.1.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48463232,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution1.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48463360,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution1.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48537088,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution2.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48537216,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer1.convolution2.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer1.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48610944,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48611072,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48684800,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48684928,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.1.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.1.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48758656,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.projection.weight",
+     "src": "neck.fusion_stage.layers.2.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 48758784,
+     "nbytes": 8192
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.projection.bias",
+     "src": "neck.fusion_stage.layers.2.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48766976,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution1.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48767104,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution1.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48840832,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution2.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48840960,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer1.convolution2.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer1.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48914688,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48914816,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 48988544,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 48988672,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.2.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.2.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 49062400,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.projection.weight",
+     "src": "neck.fusion_stage.layers.3.projection.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      1,
+      1
+     ],
+     "offset": 49062528,
+     "nbytes": 8192
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.projection.bias",
+     "src": "neck.fusion_stage.layers.3.projection.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 49070720,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution1.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 49070848,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution1.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 49144576,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution2.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 49144704,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer1.convolution2.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer1.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 49218432,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution1.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 49218560,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution1.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 49292288,
+     "nbytes": 128
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution2.weight",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64,
+      64,
+      3,
+      3
+     ],
+     "offset": 49292416,
+     "nbytes": 73728
+    },
+    {
+     "name": "net.neck.fusion_stage.layers.3.residual_layer2.convolution2.bias",
+     "src": "neck.fusion_stage.layers.3.residual_layer2.convolution2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      64
+     ],
+     "offset": 49366144,
+     "nbytes": 128
+    },
+    {
+     "name": "net.head.conv1.weight",
+     "src": "head.conv1.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      32,
+      64,
+      3,
+      3
+     ],
+     "offset": 49366272,
+     "nbytes": 36864
+    },
+    {
+     "name": "net.head.conv1.bias",
+     "src": "head.conv1.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      32
+     ],
+     "offset": 49403136,
+     "nbytes": 64
+    },
+    {
+     "name": "net.head.conv2.weight",
+     "src": "head.conv2.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      32,
+      32,
+      3,
+      3
+     ],
+     "offset": 49403200,
+     "nbytes": 18432
+    },
+    {
+     "name": "net.head.conv2.bias",
+     "src": "head.conv2.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      32
+     ],
+     "offset": 49421632,
+     "nbytes": 64
+    },
+    {
+     "name": "net.head.conv3.weight",
+     "src": "head.conv3.weight",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1,
+      32,
+      1,
+      1
+     ],
+     "offset": 49421696,
+     "nbytes": 64
+    },
+    {
+     "name": "net.head.conv3.bias",
+     "src": "head.conv3.bias",
+     "src_dtype": "f32",
+     "dtype": "f16",
+     "shape": [
+      1
+     ],
+     "offset": 49421760,
+     "nbytes": 2
+    }
+   ],
+   "inline_initializers": 0,
+   "inline_bytes": 0,
+   "blob_sha256": "e96d751036b7f671339d877986a64f8ec4437c42f8a26760d6659365a7b9e11a",
+   "graph_sha256": "29bf85a0bc7226fcdfefda284659eff153f211951fc40fd7466d16f9561d5836",
+   "max_abs_err_vs_torch": 0.004242897033691406,
+   "ref_range": [
+    2.1274566650390625,
+    4.049521446228027
+   ]
+  }
+ }
+}

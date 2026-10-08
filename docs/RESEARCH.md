@@ -92,6 +92,25 @@ excluded; they only make sense on ≥ 12 GB GPUs.
 
 ---
 
+## 1b. New backgrounds and depth-aware blur
+
+Goal: put a colour, gradient, picture or the *blurred original* behind a cut-out. A uniform blur
+makes subjects look pasted on (the ground under feet or wheels gets blurred too), so the blur is
+optionally driven by a depth map: blur grows with the distance from the subject's depth.
+
+| Candidate | License | Notes |
+|---|---|---|
+| **Depth Anything V2 Small** (ViT-S, 24.8 M params) | **Apache-2.0** (Small only) | Chosen. 99 MB safetensors from the authors' HF repo (pinned revision). fp32 graph error vs PyTorch 4.5e-6, fp16 0.004 (range ~2). 0.2 s GPU / 0.9 s CPU at 518 px. |
+| Depth Anything V2 Base / Large / Giant | CC-BY-NC-4.0 | **Excluded: non-commercial.** |
+| MiDaS v2.1 small | MIT | Older, noticeably weaker relative depth. |
+| Image harmonization (Harmonizer, PCT-Net, MKL-Harmonizer, DiffHarmony) | CC BY-NC-SA / MPL / MIT code, weights trained on iHarmony4 (non-commercial dataset) or none published | **Not used**: unclear commercial status of the weights or far too heavy (diffusion). |
+
+Implementation notes: the original pixels behind the subject are carried through trim / padding /
+resize / upscale so they stay aligned; the subject (grown slightly) and any added padding are filled
+with a weighted pull-push estimate before blurring (no colour halo); depth inside invented areas is
+continued from real pixels and treated as far away; the blur uses five pre-blurred levels blended per
+pixel. Measured on 1920 × 1280: uniform blur 0.4 s, depth blur 0.65 s (GPU) incl. the model.
+
 ## 2. Upscaling and enhancement
 
 | Model | Licence | Size (fp16) | GPU (per input MP) | CPU (per input MP) | Use |

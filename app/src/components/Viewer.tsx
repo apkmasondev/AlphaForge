@@ -465,15 +465,27 @@ export function Viewer() {
                   <button className="btn primary" onClick={() => installModel(missingSpec.id)}>
                     <Download size={14} /> {t("Download {size}", { size: fmtBytes(missingSpec.downloadBytes) })}
                   </button>
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      const p = S().pipeline;
-                      setPipeline({ ...p, steps: p.steps.map((s) => (s.type === "removeBackground" ? { ...s, model: "fast" } : s)) });
-                    }}
-                  >
-                    {t("Use Fast model instead")}
-                  </button>
+                  {missingSpec.kind === "depth" ? (
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        const p = S().pipeline;
+                        setPipeline({ ...p, steps: p.steps.map((s) => (s.type === "background" ? { ...s, depth: false } : s)) });
+                      }}
+                    >
+                      {t("Blur without AI")}
+                    </button>
+                  ) : (
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        const p = S().pipeline;
+                        setPipeline({ ...p, steps: p.steps.map((s) => (s.type === "removeBackground" ? { ...s, model: "fast" } : s)) });
+                      }}
+                    >
+                      {t("Use Fast model instead")}
+                    </button>
+                  )}
                 </div>
               )}
             </>

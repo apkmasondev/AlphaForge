@@ -1,7 +1,8 @@
-import { Brush, Download, Link2, Unlink2 } from "lucide-react";
+import { Brush, Download, ImagePlus, Link2, Unlink2 } from "lucide-react";
+import { api } from "../api";
 import { enterMask, installModel } from "../actions";
 import { useStore } from "../store";
-import type { BgModel, Refine, ResizeMode, Rgba, StepEntry } from "../types";
+import type { BackdropMode, BgModel, ImageFit, Refine, ResizeMode, Rgba, StepEntry } from "../types";
 import { fmtBytes } from "../lib/format";
 import { CheckRow, ColorField, NumberField, Segmented, Slider } from "./ui";
 import { useState } from "react";
@@ -339,5 +340,110 @@ export function EnhanceEditor({ step, upd }: { step: Extract<StepEntry, { type: 
 
 // ---------------------------------------------------------------------------------------------
 export function BackgroundEditor({ step, upd }: { step: Extract<StepEntry, { type: "background" }>; upd: Upd }) {
-  return <ColorField value={step.color as Rgba} onChange={(color) => upd({ color: [color[0], color[1], color[2], 255] } as Partial<StepEntry>)} />;
+  const depthModel = useStore((s) => s.models.find((m) => m.id === "depth"));
+  const dl = useStore((s) => s.downloads["depth"]);
+  const set = (p: Partial<Extract<StepEntry, { type: "background" }>>) => upd(p as Partial<StepEntry>);
+  const opaque = (c: Rgba): Rgba => [c[0], c[1], c[2], 255];
+  return (
+    <>
+      <Segmented
+        full
+        ariaLabel={t("Background")}
+        value={step.mode}
+        onChange={(mode: BackdropMode) => set({ mode })}
+        options={[
+          { value: "color", label: t("Colour") },
+          { value: "gradient", label: t("Gradient") },
+          { value: "blur", label: t("Blur"), title: t("The original background, blurred") },
+          { value: "image", label: t("Picture") },
+        ]}
+      />
+      {step.mode === "color" && <ColorField value={step.color as Rgba} onChange={(color) => set({ color: opaque(color) })} />}
+      {step.mode === "gradient" && (
+        <>
+          <div className="field">
+            <div className="field-label">{t("From")}</div>
+            <ColorField value={step.color as Rgba} onChange={(color) => set({ color: opaque(color) })} />
+          </div>
+          <div className="field">
+            <div className="field-label">{t("To")}</div>
+            <ColorField value={step.color2 as Rgba} onChange={(color2) => set({ color2: opaque(color2) })} />
+          </div>
+          <Segmented
+            ariaLabel={t("Gradient shape")}
+            value={step.radial ? "radial" : "linear"}
+            onChange={(v: string) => set({ radial: v === "radial" })}
+            options={[
+              { value: "linear", label: t("Linear") },
+              { value: "radial", label: t("Radial") },
+            ]}
+          />
+          {!step.radial && (
+            <div className="field-row">
+              <span className="field-label">{t("Angle")}</span>
+              <Slider min={0} max={355} step={5} value={step.angle} onChange={(angle) => set({ angle })} format={(v) => `${v}°`} ariaLabel={t("Angle")} />
+            </div>
+          )}
+        </>
+      )}
+      {step.mode === "blur" && (
+        <>
+          <div className="field-row">
+            <span className="field-label">{t("Blur")}</span>
+            <Slider min={0.05} max={1} step={0.05} value={step.blur} onChange={(blur) => set({ blur })} format={(v) => `${Math.round(v * 100)}%`} ariaLabel={t("Blur")} />
+          </div>
+          <CheckRow checked={step.depth} onChange={(depth) => set({ depth })}>
+            {t("Lens-like blur by distance")} <span className="badge accent" style={{ height: 16, fontSize: 10 }}>AI</span>
+          </CheckRow>
+          <div className="faint" style={{ fontSize: 12, marginTop: -4 }}>
+            {step.depth
+              ? t("Things near the subject stay sharp, the far background is blurred most — like a real camera.")
+              : t("The whole background is blurred evenly.")}
+          </div>
+          {step.depth && depthModel && !depthModel.installed && (
+            <div className="row" style={{ gap: 8, alignItems: "center" }}>
+              {dl ? (
+                <span className="faint num" style={{ fontSize: 12 }}>{t("Downloading the depth model… {p}%", { p: Math.round((dl.done / Math.max(1, dl.total)) * 100) })}</span>
+              ) : (
+                <button className="btn sm" onClick={() => installModel("depth")}>
+                  <Download size={13} /> {t("Download depth model ({size})", { size: fmtBytes(depthModel.downloadBytes) })}
+                </button>
+              )}
+            </div>
+          )}
+        </>
+      )}
+      {step.mode === "image" && (
+        <>
+          <div className="row" style={{ gap: 8, alignItems: "center", minWidth: 0 }}>
+            <button className="btn sm" onClick={async () => { const f = await api.chooseImage(t("Choose a background picture")); if (f) set({ image: f }); }}>
+              <ImagePlus size={13} /> {step.image ? t("Change…") : t("Choose picture…")}
+            </button>
+            <span className="faint ellipsis" style={{ fontSize: 12, minWidth: 0 }} title={step.image ?? ""}>{step.image ? step.image.split(/[\\/]/).pop() : t("No picture chosen")}</span>
+          </div>
+          <Segmented
+            ariaLabel={t("Fit")}
+            value={step.fit}
+            onChange={(fit: ImageFit) => set({ fit })}
+            options={[
+              { value: "cover", label: t("Fill"), title: t("Fill the whole canvas, cropping the picture if needed") },
+              { value: "contain", label: t("Fit"), title: t("Show the whole picture") },
+            ]}
+          />
+          {step.fit === "contain" && (
+            <div className="field">
+              <div className="field-label">{t("Border colour")}</div>
+              <ColorField value={step.color as Rgba} onChange={(color) => set({ color: opaque(color) })} />
+            </div>
+          )}
+        </>
+      )}
+      {step.mode !== "color" && (
+        <div className="field-row">
+          <span className="field-label">{t("Darken")}</span>
+          <Slider min={0} max={1} step={0.05} value={step.dim} onChange={(dim) => set({ dim })} format={(v) => `${Math.round(v * 100)}%`} ariaLabel={t("Darken")} />
+        </div>
+      )}
+    </>
+  );
 }

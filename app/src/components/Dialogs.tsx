@@ -243,19 +243,19 @@ function ModelsPane() {
   const models = useStore((s) => s.models);
   const downloads = useStore((s) => s.downloads);
   const set = useStore((s) => s.set);
-  const group = (kind: "background" | "upscale") => models.filter((m) => m.kind === kind);
+  const group = (kind: "background" | "upscale" | "depth") => models.filter((m) => m.kind === kind);
   return (
     <>
       <h3>{t("Models")}</h3>
       <div className="notice info">
         <Shield size={15} />
         <span>
-          {t("Only permissively licensed models are used (MIT, BSD-3-Clause) — free for commercial work. Downloads come straight from the authors’ official repositories at pinned versions and are checked against SHA-256 checksums before use. Model files are data (safetensors / ONNX); nothing is executed.")}
+          {t("Only permissively licensed models are used (MIT, BSD-3-Clause, Apache-2.0) — free for commercial work. Downloads come straight from the authors’ official repositories at pinned versions and are checked against SHA-256 checksums before use. Model files are data (safetensors / ONNX); nothing is executed.")}
         </span>
       </div>
-      {(["background", "upscale"] as const).map((k) => (
+      {(["background", "upscale", "depth"] as const).map((k) => (
         <div className="group" key={k}>
-          <div className="group-title">{k === "background" ? t("Background removal") : t("Upscaling")}</div>
+          <div className="group-title">{k === "background" ? t("Background removal") : k === "upscale" ? t("Upscaling") : t("Background blur")}</div>
           <div>
             {group(k).map((m) => {
               const dl = downloads[m.id];

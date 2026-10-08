@@ -141,7 +141,11 @@ export function dismissToast(id: number) {
   useStore.setState((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) }));
 }
 
+/** Ids removed from the list (ids are never reused). A late "item-updated" must not bring them back. */
+export const removedIds = new Set<number>();
+
 export function upsertItem(it: Item) {
+  if (removedIds.has(it.id)) return;
   useStore.setState((s) => {
     const i = s.items.findIndex((x) => x.id === it.id);
     if (i < 0) return { items: [...s.items, it] };

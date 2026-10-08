@@ -1,7 +1,7 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { api, on, type Events } from "./api";
 import { clonePipeline, normalizePipeline, samePipeline } from "./pipeline";
-import { initialPreview, S, toast, upsertItem, useStore } from "./store";
+import { initialPreview, removedIds, S, toast, upsertItem, useStore } from "./store";
 import type { Item, Pipeline, Preset, Settings, Stroke } from "./types";
 import { fmtBytes, fmtMs, fmtSaved } from "./lib/format";
 import { resolveLang, setLang, t, tr } from "./i18n";
@@ -209,6 +209,7 @@ export async function paste() {
 
 export async function removeItems(ids: number[]) {
   if (!ids.length) return;
+  for (const id of ids) removedIds.add(id);
   await api.removeItems(ids);
   for (const id of ids) strokeCache.delete(id);
   const s = S();
@@ -224,6 +225,7 @@ export async function removeItems(ids: number[]) {
 }
 
 export async function clearAll() {
+  for (const it of S().items) removedIds.add(it.id);
   await api.clearItems();
   strokeCache.clear();
   useStore.setState({ items: [], selection: [], selectedId: null, preview: initialPreview });
@@ -376,6 +378,7 @@ export async function deletePreset(id: string) {
 
 export async function startExport(ids?: number[]) {
   const s = S();
+  if (s.exportRun.running) return; // double click / Ctrl+E while an export is running
   const list = ids ?? (s.selection.length > 1 ? s.selection : s.items.map((i) => i.id));
   const usable = list.filter((id) => {
     const it = s.items.find((i) => i.id === id);
@@ -499,6 +502,7 @@ export async function resetStrokes() {
 // ---------------------------------------------------------------------------------------------
 
 export async function installModel(id: string) {
+  if (S().downloads[id]) return; // already downloading
   try {
     useStore.setState((s) => ({ downloads: { ...s.downloads, [id]: { key: id, done: 0, total: 1, label: t("Connecting") } } }));
     await api.installModel(id);
@@ -513,10 +517,16 @@ export async function installModel(id: string) {
 }
 
 export async function installGpuPack() {
+  if (S().downloads["gpu-pack"]) return; // already downloading
   try {
     useStore.setState((s) => ({ downloads: { ...s.downloads, "gpu-pack": { key: "gpu-pack", done: 0, total: 1, label: t("Connecting") } } }));
     await api.installGpuPack();
   } catch (e) {
+    useStore.setState((s) => {
+      const d = { ...s.downloads };
+      delete d["gpu-pack"];
+      return { downloads: d };
+    });
     toast({ kind: "error", title: t("GPU pack download failed"), body: tr(String(e)) });
   }
 }

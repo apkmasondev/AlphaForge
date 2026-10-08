@@ -188,7 +188,8 @@ fn process_one(app: &AppHandle, id: u64, pipe: &Pipeline, planner: &Mutex<Planne
     let t0 = Instant::now();
     let (key, strokes, source, name, root, src_format, in_bytes) = {
         let items = state.items.read();
-        let it = items.map.get(&id).ok_or_else(|| Error::Invalid("removed".into()))?;
+        // Removed from the list while the export was running: skip it quietly.
+        let Some(it) = items.map.get(&id) else { return Ok(None) };
         (it.key(), it.strokes.clone(), it.source.clone(), it.name.clone(), it.root.clone(), it.info.as_ref().map(|i| i.format).unwrap_or("PNG"), it.size)
     };
     progress("Loading", 0.0);

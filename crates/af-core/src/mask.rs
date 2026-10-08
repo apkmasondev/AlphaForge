@@ -59,7 +59,7 @@ pub enum StrokeMode {
 // ---------------------------------------------------------------------------------------------
 
 /// Horizontal running-sum box blur of radius `r` (window 2r+1), edge-clamped.
-fn box_rows(src: &[f32], w: usize, h: usize, r: usize, dst: &mut [f32]) {
+fn box_rows(src: &[f32], w: usize, r: usize, dst: &mut [f32]) {
     if r == 0 {
         dst.copy_from_slice(src);
         return;
@@ -68,12 +68,11 @@ fn box_rows(src: &[f32], w: usize, h: usize, r: usize, dst: &mut [f32]) {
     dst.par_chunks_mut(w).zip(src.par_chunks(w)).for_each(|(out, row)| {
         let at = |i: isize| row[i.clamp(0, w as isize - 1) as usize];
         let mut acc: f32 = (-(r as isize)..=r as isize).map(at).sum();
-        for x in 0..w {
-            out[x] = acc * inv;
+        for (x, o) in out.iter_mut().enumerate() {
+            *o = acc * inv;
             acc += at(x as isize + r as isize + 1) - at(x as isize - r as isize);
         }
     });
-    let _ = h;
 }
 
 fn transpose(src: &[f32], w: usize, h: usize) -> Vec<f32> {
@@ -97,10 +96,10 @@ pub fn box_blur(src: &[f32], w: usize, h: usize, r: usize) -> Vec<f32> {
         return src.to_vec();
     }
     let mut tmp = vec![0f32; w * h];
-    box_rows(src, w, h, r, &mut tmp);
+    box_rows(src, w, r, &mut tmp);
     let t = transpose(&tmp, w, h);
     let mut t2 = vec![0f32; w * h];
-    box_rows(&t, h, w, r, &mut t2);
+    box_rows(&t, h, r, &mut t2);
     transpose(&t2, h, w)
 }
 
@@ -202,10 +201,10 @@ pub fn remove_islands(a: &mut [f32], w: usize, h: usize) {
     }
     // Mass-weighted area per component (soft pixels count partially).
     let mut mass = std::collections::HashMap::<u32, f32>::new();
-    for i in 0..n {
-        if on(a[i]) {
+    for (i, &v) in a.iter().enumerate() {
+        if on(v) {
             let r = find(&mut parent, i as u32);
-            *mass.entry(r).or_default() += a[i];
+            *mass.entry(r).or_default() += v;
         }
     }
     let largest = mass.values().cloned().fold(0.0, f32::max);
@@ -295,7 +294,7 @@ pub fn build_alpha(model_alpha: &[f32], mw: u32, mh: u32, img: &Rgba, refine: &R
     if refine.edge_snap && scale > 1.4 {
         let guide = luma(img);
         let r = (scale * 2.0).round().clamp(2.0, 24.0) as usize;
-        let s = ((r / 4).max(1)).min(4);
+        let s = (r / 4).clamp(1, 4);
         let g = guided_filter(&guide, &a, w, h, r, 1e-4, s);
         // Only let the guided result act in the uncertain edge band, keep confident areas intact.
         a.par_iter_mut().zip(g.par_iter()).for_each(|(v, gv)| {

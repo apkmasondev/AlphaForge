@@ -23,6 +23,41 @@ pub struct Request {
     pub seq: u64,
 }
 
+/// Encoding the result only to measure its file size can take seconds (PNG max, AVIF). It runs
+/// on its own thread so the next preview never waits for it; stale jobs are dropped.
+struct SizeJob {
+    id: u64,
+    seq: u64,
+    image: Arc<af_core::Rgba>,
+    options: imageio::EncodeOptions,
+    format: &'static str,
+    cancel: CancelToken,
+}
+
+fn size_worker(app: AppHandle, rx: Receiver<SizeJob>) {
+    while let Ok(mut job) = rx.recv() {
+        while let Ok(newer) = rx.try_recv() {
+            job = newer;
+        }
+        if job.cancel.is_cancelled() {
+            continue;
+        }
+        let t1 = Instant::now();
+        let r = af_core::guard(|| imageio::encode(&job.image, &job.options));
+        if job.cancel.is_cancelled() {
+            continue;
+        }
+        match r {
+            Ok(bytes) => {
+                let _ = app.emit("preview-size", SizeEvt { id: job.id, seq: job.seq, bytes: bytes.len() as u64, format: job.format, ms: t1.elapsed().as_millis() as u64 });
+            }
+            Err(e) => {
+                let _ = app.emit("preview-error", ErrorEvt { id: job.id, seq: job.seq, message: e.to_string(), missing_model: None });
+            }
+        }
+    }
+}
+
 pub struct PreviewWorker {
     tx: Sender<Request>,
     current: Arc<Mutex<Option<CancelToken>>>,
@@ -83,9 +118,12 @@ pub fn missing_model(e: &Error) -> Option<&'static str> {
 impl PreviewWorker {
     pub fn start(app: AppHandle) -> Self {
         let (tx, rx) = unbounded::<Request>();
+        let (size_tx, size_rx) = unbounded::<SizeJob>();
         let current = Arc::new(Mutex::new(None));
         let cur2 = Arc::clone(&current);
-        std::thread::Builder::new().name("preview".into()).spawn(move || worker(app, rx, cur2)).expect("preview thread");
+        let app2 = app.clone();
+        std::thread::Builder::new().name("preview-size".into()).spawn(move || size_worker(app2, size_rx)).expect("preview size thread");
+        std::thread::Builder::new().name("preview".into()).spawn(move || worker(app, rx, cur2, size_tx)).expect("preview thread");
         Self { tx, current, seq: AtomicU64::new(1) }
     }
 
@@ -106,7 +144,7 @@ impl PreviewWorker {
     }
 }
 
-fn worker(app: AppHandle, rx: Receiver<Request>, current: Arc<Mutex<Option<CancelToken>>>) {
+fn worker(app: AppHandle, rx: Receiver<Request>, current: Arc<Mutex<Option<CancelToken>>>, size_tx: Sender<SizeJob>) {
     while let Ok(mut req) = rx.recv() {
         // Only the newest request matters.
         while let Ok(newer) = rx.try_recv() {
@@ -115,18 +153,19 @@ fn worker(app: AppHandle, rx: Receiver<Request>, current: Arc<Mutex<Option<Cance
         let token = CancelToken::new();
         *current.lock() = Some(token.clone());
         let r = af_core::guard(|| {
-            run_one(&app, &req, &token);
+            run_one(&app, &req, &token, &size_tx);
             Ok(())
         });
         if let Err(e) = r {
             log::error!("preview failed: {e}");
             let _ = app.emit("preview-error", ErrorEvt { id: req.id, seq: req.seq, message: e.to_string(), missing_model: None });
         }
-        *current.lock() = None;
+        // The token stays registered until the next request cancels it; that also marks this
+        // request's pending size job as stale.
     }
 }
 
-fn run_one(app: &AppHandle, req: &Request, cancel: &CancelToken) {
+fn run_one(app: &AppHandle, req: &Request, cancel: &CancelToken, size_tx: &Sender<SizeJob>) {
     let state = app.state::<AppState>();
     let t0 = Instant::now();
     let fail = |e: Error| {
@@ -192,12 +231,5 @@ fn run_one(app: &AppHandle, req: &Request, cancel: &CancelToken) {
         return;
     }
     // Real output size (encode with the actual settings) for the "Output size / Saved %" display.
-    let t1 = Instant::now();
-    match imageio::encode(&res.image, &req.pipeline.output.options_for(fmt)) {
-        Ok(bytes) if !cancel.is_cancelled() => {
-            let _ = app.emit("preview-size", SizeEvt { id: req.id, seq: req.seq, bytes: bytes.len() as u64, format: fmt.label(), ms: t1.elapsed().as_millis() as u64 });
-        }
-        Ok(_) => {}
-        Err(e) => fail(e),
-    }
+    let _ = size_tx.send(SizeJob { id: req.id, seq: req.seq, image: res.image, options: req.pipeline.output.options_for(fmt), format: fmt.label(), cancel: cancel.clone() });
 }

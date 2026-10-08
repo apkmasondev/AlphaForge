@@ -2,12 +2,11 @@
 
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use std::sync::Arc;
 use std::time::Instant;
 
 use af_core::export::{write_atomic, ExportSettings, Planned, Planner, SourceRef};
 use af_core::imageio;
-use af_core::pipeline::{self, ExecContext, Pipeline, Stage};
+use af_core::pipeline::{self, ExecContext, OutFormat, Pipeline, Stage};
 use af_core::{CancelToken, Error, Result};
 use parking_lot::Mutex;
 use serde::Serialize;
@@ -192,6 +191,20 @@ fn process_one(app: &AppHandle, id: u64, pipe: &Pipeline, planner: &Mutex<Planne
         let Some(it) = items.map.get(&id) else { return Ok(None) };
         (it.key(), it.strokes.clone(), it.source.clone(), it.name.clone(), it.root.clone(), it.info.as_ref().map(|i| i.format).unwrap_or("PNG"), it.size)
     };
+    let path_buf = match &source {
+        Source::File(p) => Some(p.clone()),
+        Source::Memory(_) => None,
+    };
+    let src_ref = SourceRef { path: path_buf.as_deref(), name: &name, root: root.as_deref() };
+    // With a fixed output format the target is known up front: with "Skip" an existing output
+    // is skipped before any (possibly slow AI) processing.
+    let mut early_target = None;
+    if pipe.output.format != OutFormat::Same {
+        match planner.lock().plan(&src_ref, pipe.output.resolve(src_format, false).ext())? {
+            Planned::Write(p) => early_target = Some(p),
+            Planned::Skip(_) => return Ok(None),
+        }
+    }
     progress("Loading", 0.0);
     let original = state.original(id)?;
     let n_steps = pipe.active().count().max(1);
@@ -203,17 +216,14 @@ fn process_one(app: &AppHandle, id: u64, pipe: &Pipeline, planner: &Mutex<Planne
     let has_alpha = !imageio::is_opaque(&res.image);
     let fmt = pipe.output.resolve(src_format, has_alpha);
     let bytes = imageio::encode(&res.image, &pipe.output.options_for(fmt))?;
-    let path_buf = match &source {
-        Source::File(p) => Some(p.clone()),
-        Source::Memory(_) => None,
-    };
-    let planned = planner.lock().plan(&SourceRef { path: path_buf.as_deref(), name: &name, root: root.as_deref() }, fmt.ext())?;
-    let target = match planned {
-        Planned::Write(p) => p,
-        Planned::Skip(_) => return Ok(None),
+    let target = match early_target {
+        Some(t) => t,
+        None => match planner.lock().plan(&src_ref, fmt.ext())? {
+            Planned::Write(p) => p,
+            Planned::Skip(_) => return Ok(None),
+        },
     };
     write_atomic(&target, &bytes)?;
     let (w, h) = res.image.dimensions();
-    let _ = Arc::strong_count(&res.image);
     Ok(Some((OutInfo { path: Some(target.to_string_lossy().into_owned()), bytes: bytes.len() as u64, width: w, height: h, format: fmt.label(), ms: t0.elapsed().as_millis() as u64 }, in_bytes)))
 }

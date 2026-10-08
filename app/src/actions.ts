@@ -156,7 +156,8 @@ async function wireEvents() {
 // files
 // ---------------------------------------------------------------------------------------------
 
-function afterAdd(added: Item[], skipped: number) {
+function afterAdd(added: Item[], skipped: number, limited = false) {
+  if (limited) toast({ kind: "warning", title: t("Only the first {n} images were added", { n: 5000 }), body: t("Add the rest in smaller parts.") });
   if (added.length) {
     useStore.setState((s) => ({ items: mergeItems(s.items, added) }));
     if (S().selectedId == null || added.length === 1) select(added[0].id);
@@ -173,7 +174,7 @@ function mergeItems(cur: Item[], add: Item[]): Item[] {
 export async function addPaths(paths: string[]) {
   try {
     const r = await api.addPaths(paths);
-    afterAdd(r.added, r.skipped);
+    afterAdd(r.added, r.skipped, r.limited);
   } catch (e) {
     toast({ kind: "error", title: t("Could not add files"), body: tr(String(e)) });
   }
@@ -181,12 +182,12 @@ export async function addPaths(paths: string[]) {
 
 export async function openFiles() {
   const r = await api.openFilesDialog();
-  if (r.added.length || r.skipped) afterAdd(r.added, r.skipped);
+  if (r.added.length || r.skipped) afterAdd(r.added, r.skipped, r.limited);
 }
 
 export async function openFolder() {
   const r = await api.openFolderDialog();
-  if (r.added.length || r.skipped) afterAdd(r.added, r.skipped);
+  if (r.added.length || r.skipped) afterAdd(r.added, r.skipped, r.limited);
   else if (r.added.length === 0 && r.skipped === 0) {
     /* dialog cancelled */
   }
@@ -235,7 +236,9 @@ export async function clearAll() {
 export function select(id: number, opts: { additive?: boolean; range?: boolean } = {}) {
   const s = S();
   if (opts.additive) {
-    const sel = s.selection.includes(id) ? s.selection.filter((x) => x !== id) : [...s.selection, id];
+    // Ctrl+click starts a multi-selection from the item that is currently selected.
+    const base = s.selection.length ? s.selection : s.selectedId != null && s.selectedId !== id ? [s.selectedId] : [];
+    const sel = base.includes(id) ? base.filter((x) => x !== id) : [...base, id];
     useStore.setState({ selection: sel, selectedId: id });
   } else if (opts.range && s.selectedId != null) {
     const a = s.items.findIndex((i) => i.id === s.selectedId);
@@ -388,6 +391,8 @@ export async function startExport(ids?: number[]) {
     toast({ kind: "info", title: t("Nothing to export"), body: t("Add images first.") });
     return;
   }
+  const loading = list.filter((id) => s.items.find((i) => i.id === id)?.status === "loading").length;
+  if (loading) toast({ kind: "info", title: t(loading === 1 ? "{n} image is still loading" : "{n} images are still loading", { n: loading }), body: t("They were left out of this export.") });
   const needed = s.pipeline.steps
     .filter((x) => x.enabled && x.type === "removeBackground" && (x.model === "quality" || x.model === "hair"))
     .map((x): string => (x.type === "removeBackground" && x.model === "hair" ? "bg-hair" : "bg-quality"));
@@ -416,8 +421,14 @@ export async function startExport(ids?: number[]) {
 }
 
 export async function copyResult() {
-  const id = S().selectedId;
+  const s = S();
+  const id = s.selectedId;
   if (id == null) return;
+  // Copy exactly what the viewer shows; a running preview would copy an older result.
+  if (s.preview.id !== id || s.preview.status !== "done") {
+    toast({ kind: "info", title: t("The result is not ready yet"), body: t("Try again when the preview has finished.") });
+    return;
+  }
   try {
     await api.copyResult(id);
     toast({ kind: "success", title: t("Copied to clipboard"), body: t("Paste into any app that supports images.") });

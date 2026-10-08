@@ -78,6 +78,7 @@ export function NumberField(props: {
 }) {
   const [text, setText] = useState(String(props.value));
   const focused = useRef(false);
+  const discard = useRef(false); // Escape: leave without committing what was typed
   useEffect(() => {
     if (!focused.current) setText(String(props.value));
   }, [props.value]);
@@ -131,13 +132,18 @@ export function NumberField(props: {
         }}
         onBlur={(e) => {
           focused.current = false;
+          if (discard.current) {
+            discard.current = false;
+            setText(String(props.value));
+            return;
+          }
           commit(e.currentTarget.value);
         }}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") (e.target as HTMLInputElement).blur();
           if (e.key === "Escape") {
-            setText(String(props.value));
+            discard.current = true;
             (e.target as HTMLInputElement).blur();
           }
           if (e.key === "ArrowUp" || e.key === "ArrowDown") {

@@ -19,7 +19,8 @@ pub fn is_image_path(p: &Path) -> bool {
 
 /// Expand dropped paths: files are taken as-is (if they look like images), folders are scanned
 /// recursively. Returns (file, root folder if it came from a folder).
-pub fn expand(paths: &[PathBuf]) -> (Vec<(PathBuf, Option<PathBuf>)>, usize) {
+/// The third value is true when the file limit cut the list short.
+pub fn expand(paths: &[PathBuf]) -> (Vec<(PathBuf, Option<PathBuf>)>, usize, bool) {
     let mut out = Vec::new();
     let mut skipped = 0;
     for p in paths {
@@ -36,8 +37,9 @@ pub fn expand(paths: &[PathBuf]) -> (Vec<(PathBuf, Option<PathBuf>)>, usize) {
             break;
         }
     }
+    let limited = out.len() >= MAX_FILES;
     out.truncate(MAX_FILES);
-    (out, skipped)
+    (out, skipped, limited)
 }
 
 fn scan(root: &Path, dir: &Path, depth: usize, out: &mut Vec<(PathBuf, Option<PathBuf>)>, skipped: &mut usize) {
@@ -81,7 +83,7 @@ pub fn add_files(app: &AppHandle, files: Vec<(PathBuf, Option<PathBuf>)>) -> Vec
     let mut ids = Vec::new();
     {
         let mut items = state.items.write();
-        let existing: std::collections::HashSet<String> = items
+        let mut existing: std::collections::HashSet<String> = items
             .map
             .values()
             .filter_map(|i| match &i.source {
@@ -90,7 +92,8 @@ pub fn add_files(app: &AppHandle, files: Vec<(PathBuf, Option<PathBuf>)>) -> Vec
             })
             .collect();
         for (p, root) in files {
-            if existing.contains(&p.to_string_lossy().to_lowercase()) {
+            // also catches the same file twice in one drop (a folder plus a file inside it)
+            if !existing.insert(p.to_string_lossy().to_lowercase()) {
                 continue;
             }
             let (size, version) = file_version(&p);

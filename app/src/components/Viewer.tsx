@@ -190,7 +190,9 @@ export function Viewer() {
   // space = temporary pan
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.code === "Space" && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
+      // Space still activates focused controls (buttons, switches, lists) for keyboard users.
+      const interactive = e.target instanceof Element && e.target.closest('button, a, input, textarea, select, [role="slider"], [role="switch"], [role="menuitem"], [role="option"], [role="tab"], [contenteditable="true"]');
+      if (e.code === "Space" && !interactive) {
         e.preventDefault();
         setSpace(true);
       }

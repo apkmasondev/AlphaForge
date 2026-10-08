@@ -23,7 +23,7 @@ pub fn paste(app: &AppHandle) -> Result<PasteResult> {
     if let Ok(list) = clipboard_win::get_clipboard::<Vec<String>, _>(clipboard_win::formats::FileList) {
         let paths: Vec<PathBuf> = list.into_iter().map(PathBuf::from).collect();
         if !paths.is_empty() {
-            let (files, _) = items::expand(&paths);
+            let (files, _, _) = items::expand(&paths);
             let added = items::add_files(app, files);
             return Ok(PasteResult { added, kind: "files" });
         }

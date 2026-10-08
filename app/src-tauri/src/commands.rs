@@ -73,13 +73,15 @@ pub async fn runtime_info(state: State<'_, AppState>) -> CmdResult<RuntimeDto> {
 pub struct AddResult {
     pub added: Vec<ItemDto>,
     pub skipped: usize,
+    /// More images than the per-add limit were found; only the first ones were added.
+    pub limited: bool,
 }
 
 fn add_and_report(app: &AppHandle, paths: Vec<PathBuf>) -> AddResult {
-    let (files, skipped) = items::expand(&paths);
+    let (files, skipped, limited) = items::expand(&paths);
     let ids = items::add_files(app, files);
     let state = app.state::<AppState>();
-    AddResult { added: ids.iter().filter_map(|id| state.item_dto(*id)).collect(), skipped }
+    AddResult { added: ids.iter().filter_map(|id| state.item_dto(*id)).collect(), skipped, limited }
 }
 
 #[tauri::command]
@@ -129,15 +131,6 @@ pub fn remove_items(app: AppHandle, ids: Vec<u64>) {
 pub fn clear_items(app: AppHandle) {
     let ids: Vec<u64> = app.state::<AppState>().items.read().order.clone();
     items::remove(&app, &ids);
-}
-
-#[tauri::command]
-pub fn reorder_items(state: State<AppState>, order: Vec<u64>) {
-    let mut items = state.items.write();
-    let valid: Vec<u64> = order.into_iter().filter(|id| items.map.contains_key(id)).collect();
-    if valid.len() == items.order.len() {
-        items.order = valid;
-    }
 }
 
 #[tauri::command]
@@ -247,8 +240,9 @@ pub fn open_data_folder(state: State<AppState>) -> CmdResult<()> {
 }
 
 #[tauri::command]
-pub fn save_settings(app: AppHandle, settings: Settings) {
+pub fn save_settings(app: AppHandle, mut settings: Settings) {
     let state = app.state::<AppState>();
+    settings.cache_mb = settings.cache_mb.clamp(256, 65_536);
     let prev = state.settings.read().clone();
     if prev.device != settings.device {
         state.engine.set_pref(settings.device);

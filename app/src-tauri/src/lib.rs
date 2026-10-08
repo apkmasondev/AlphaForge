@@ -59,7 +59,7 @@ pub fn run() {
             }
             let paths = paths_from_args(&argv);
             if !paths.is_empty() {
-                let (files, _) = items::expand(&paths);
+                let (files, _, _) = items::expand(&paths);
                 items::add_files(app, files);
                 let _ = app.emit("items-changed", ());
             }
@@ -144,7 +144,7 @@ pub fn run() {
             let args: Vec<String> = std::env::args().collect();
             let paths = paths_from_args(&args);
             if !paths.is_empty() {
-                let (files, _) = items::expand(&paths);
+                let (files, _, _) = items::expand(&paths);
                 items::add_files(app.handle(), files);
             }
             Ok(())
@@ -159,7 +159,6 @@ pub fn run() {
             commands::list_items,
             commands::remove_items,
             commands::clear_items,
-            commands::reorder_items,
             commands::reprocess,
             commands::preview,
             commands::cancel_preview,

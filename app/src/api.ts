@@ -23,6 +23,7 @@ import type {
 export interface AddResult {
   added: Item[];
   skipped: number;
+  limited: boolean;
 }
 
 export const api = {
@@ -37,7 +38,6 @@ export const api = {
   listItems: () => invoke<Item[]>("list_items"),
   removeItems: (ids: number[]) => invoke<void>("remove_items", { ids }),
   clearItems: () => invoke<void>("clear_items"),
-  reorderItems: (order: number[]) => invoke<void>("reorder_items", { order }),
   reprocess: (id: number) => invoke<Item | null>("reprocess", { id }),
 
   preview: (id: number, pipeline: Pipeline, stage: "final" | "mask") => invoke<number>("preview", { id, pipeline, stage }),

@@ -1,5 +1,5 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { api, on } from "./api";
+import { api, on, type Events } from "./api";
 import { clonePipeline, normalizePipeline, samePipeline } from "./pipeline";
 import { initialPreview, S, toast, upsertItem, useStore } from "./store";
 import type { Item, Pipeline, Preset, Settings, Stroke } from "./types";
@@ -79,26 +79,22 @@ async function wireEvents() {
     useStore.setState({ items });
     if (S().selectedId == null && items[0]) select(items[0].id);
   });
-  await on("preview-progress", (p) => {
+  await onPreview("preview-progress", (p) => {
     const pv = S().preview;
-    if (p.seq !== pv.seq) return;
     useStore.setState({ preview: { ...pv, status: "running", step: p.step, fraction: p.fraction, label: p.label ? t(p.label) : pv.label } });
   });
-  await on("preview-done", (d) => {
+  await onPreview("preview-done", (d) => {
     const pv = S().preview;
-    if (d.seq !== pv.seq) return;
     useStore.setState({ preview: { ...pv, status: "done", done: d, error: null, fraction: 1 } });
     const notes = d.reports.map((r) => r.note).filter(Boolean) as string[];
     for (const n of notes) toast({ kind: "warning", title: t("Heads up"), body: tr(n) });
   });
-  await on("preview-size", (z) => {
+  await onPreview("preview-size", (z) => {
     const pv = S().preview;
-    if (z.seq !== pv.seq) return;
     useStore.setState({ preview: { ...pv, size: z } });
   });
-  await on("preview-error", (e) => {
+  await onPreview("preview-error", (e) => {
     const pv = S().preview;
-    if (e.seq !== pv.seq) return;
     useStore.setState({ preview: { ...pv, status: "error", error: e } });
   });
   await on("export-progress", (p) => useStore.setState((s) => ({ exportRun: { ...s.exportRun, running: true, progress: p } })));
@@ -272,6 +268,23 @@ export async function reprocess(id: number) {
 
 let previewTimer: number | undefined;
 
+/**
+ * Preview events that arrived before `api.preview` returned their seq. Fast pipelines (resize,
+ * convert) can finish before the invoke response reaches the UI; dropping those events left the
+ * preview stuck on "Processing".
+ */
+let earlyPreviewEvents: { seq: number; apply: () => void }[] = [];
+
+/** Listen to a preview event, applying it only for the current request (buffering early ones). */
+type PreviewEvent = "preview-progress" | "preview-done" | "preview-size" | "preview-error";
+function onPreview<K extends PreviewEvent>(name: K, handler: (payload: Events[K]) => void) {
+  return on(name, (payload) => {
+    const cur = S().preview.seq;
+    if (payload.seq === cur) handler(payload);
+    else if (payload.seq > cur && earlyPreviewEvents.length < 64) earlyPreviewEvents.push({ seq: payload.seq, apply: () => handler(payload) });
+  });
+}
+
 /** Re-render the selected image after `delay` ms (debounced). */
 export function schedulePreview(delay = 220, force = false) {
   window.clearTimeout(previewTimer);
@@ -291,6 +304,9 @@ async function runPreview(_force: boolean) {
   useStore.setState({
     preview: { ...pv, id, seq, status: "running", step: 0, fraction: 0, label: t("Processing"), error: null, size: pv.id === id ? pv.size : null, stage },
   });
+  const early = earlyPreviewEvents.filter((e) => e.seq === seq);
+  earlyPreviewEvents = earlyPreviewEvents.filter((e) => e.seq > seq);
+  for (const e of early) e.apply();
 }
 
 // ---------------------------------------------------------------------------------------------

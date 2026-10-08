@@ -31,7 +31,7 @@ fn init_logging(dir: &std::path::Path) {
         let _ = std::fs::rename(&path, dir.join("alphaforge.old.log"));
     }
     let file = std::fs::OpenOptions::new().create(true).append(true).open(&path);
-    let mut b = env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info,ort=warn,tao=warn,wry=warn"));
+    let mut b = env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info,ort=warn,tao=warn,wry=warn,oxipng=warn"));
     if let Ok(f) = file {
         b.target(env_logger::Target::Pipe(Box::new(f)));
     }

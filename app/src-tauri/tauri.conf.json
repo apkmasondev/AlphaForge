@@ -22,6 +22,7 @@
         "center": true,
         "visible": false,
         "dragDropEnabled": true,
+        "additionalBrowserArgs": "--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection --disable-background-networking --disable-component-update --disable-domain-reliability --no-pings --disable-sync",
         "backgroundColor": "#141518"
       }
     ],

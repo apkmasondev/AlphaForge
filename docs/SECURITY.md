@@ -6,6 +6,10 @@ Scope: the shipped application (Tauri shell, `af-core`, web UI) and the optional
 
 * No telemetry, analytics, crash reporting or update pings. ONNX Runtime's own telemetry is disabled at
   initialisation (`with_telemetry(false)`).
+* WebView2 background networking (component updates, domain reliability, pings, sync) is switched off
+  with `additionalBrowserArgs`. Measured: a full session (start, AI previews, copy, export of 10 files)
+  opened no network connection from the app or any of its WebView2 processes. Logs contain no image
+  names or paths.
 * The only outbound connections are **user-initiated** downloads (model weights from Hugging Face, GPU
   pack from GitHub/PyPI). Image data is never part of any request.
 * Pasted images live in memory and are written only when exported. Logs (`%LOCALAPPDATA%\AlphaForge\logs`)

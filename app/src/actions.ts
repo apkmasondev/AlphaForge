@@ -320,7 +320,18 @@ export function updateSettings(patch: Partial<Settings>) {
   const next = { ...cur, ...patch };
   useStore.setState({ settings: next });
   window.clearTimeout(saveTimer);
-  saveTimer = window.setTimeout(() => api.saveSettings(S().settings!), 400);
+  saveTimer = window.setTimeout(() => {
+    saveTimer = undefined;
+    api.saveSettings(S().settings!);
+  }, 400);
+}
+
+/** Write a pending (debounced) settings change now — the backend reads export options from it. */
+async function flushSettings() {
+  if (saveTimer === undefined) return;
+  window.clearTimeout(saveTimer);
+  saveTimer = undefined;
+  await api.saveSettings(S().settings!);
 }
 
 export function setPipeline(p: Pipeline, opts: { preview?: boolean } = {}) {
@@ -391,6 +402,7 @@ export async function startExport(ids?: number[]) {
   }
   try {
     useStore.setState({ exportRun: { running: true, progress: { done: 0, total: usable.length, current: null, label: t("Starting"), fraction: 0 }, summary: null } });
+    await flushSettings();
     await api.startExport(usable, s.pipeline);
   } catch (e) {
     useStore.setState({ exportRun: { running: false, progress: null, summary: null } });

@@ -148,20 +148,29 @@ pub fn write_atomic(path: &Path, data: &[u8]) -> Result<()> {
     let mut tmp = path.as_os_str().to_owned();
     tmp.push(".aftmp");
     let tmp = PathBuf::from(tmp);
-    std::fs::write(&tmp, data).map_err(|e| Error::Path(path.to_path_buf(), e.to_string()))?;
-    if path.exists() {
-        std::fs::remove_file(path).map_err(|e| {
-            let _ = std::fs::remove_file(&tmp);
-            Error::Path(path.to_path_buf(), e.to_string())
-        })?;
+    // On Windows `rename` replaces an existing file in one step (MOVEFILE_REPLACE_EXISTING), so an
+    // overwritten file is never lost if writing the new one fails. No temp file is left behind.
+    let result = std::fs::write(&tmp, data).and_then(|_| std::fs::rename(&tmp, path));
+    if let Err(e) = result {
+        let _ = std::fs::remove_file(&tmp);
+        return Err(Error::Path(path.to_path_buf(), e.to_string()));
     }
-    std::fs::rename(&tmp, path).map_err(|e| Error::Path(path.to_path_buf(), e.to_string()))?;
     Ok(())
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn write_atomic_replaces_and_leaves_no_temp_file() {
+        let dir = tempfile::tempdir().unwrap();
+        let p = dir.path().join("out.png");
+        write_atomic(&p, b"first").unwrap();
+        write_atomic(&p, b"second").unwrap();
+        assert_eq!(std::fs::read(&p).unwrap(), b"second");
+        assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), 1);
+    }
 
     #[test]
     fn plans_and_renames_within_batch() {

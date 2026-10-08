@@ -160,16 +160,22 @@ fn run_one(app: &AppHandle, req: &Request, cancel: &CancelToken) {
     let (w, h) = res.image.dimensions();
     {
         let mut p = state.previews.lock();
-        // keep only a few full-resolution previews in memory
-        if p.len() > 4 {
-            let keep = req.id;
-            let mut ids: Vec<u64> = p.keys().copied().filter(|k| *k != keep).collect();
-            ids.sort_by_key(|k| p[k].seq);
-            for k in ids.into_iter().take(p.len() - 4) {
-                p.remove(&k);
+        // Keep only a few full-resolution previews in memory: at most 5 and ~1 GB in total
+        // (upscaled results can be hundreds of MB each). The current one is always kept.
+        const MAX_COUNT: usize = 5;
+        const MAX_BYTES: usize = 1 << 30;
+        p.insert(req.id, PreviewOut { seq: req.seq, image: Arc::clone(&res.image) });
+        let mut older: Vec<u64> = p.keys().copied().filter(|k| *k != req.id).collect();
+        older.sort_by_key(|k| p[k].seq);
+        let mut bytes: usize = p.values().map(|v| v.image.as_raw().len()).sum();
+        for k in older {
+            if p.len() <= MAX_COUNT && bytes <= MAX_BYTES {
+                break;
+            }
+            if let Some(old) = p.remove(&k) {
+                bytes -= old.image.as_raw().len();
             }
         }
-        p.insert(req.id, PreviewOut { seq: req.seq, image: Arc::clone(&res.image) });
     }
     let _ = app.emit(
         "preview-done",

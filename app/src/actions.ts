@@ -210,6 +210,7 @@ export async function paste() {
 export async function removeItems(ids: number[]) {
   if (!ids.length) return;
   await api.removeItems(ids);
+  for (const id of ids) strokeCache.delete(id);
   const s = S();
   const items = s.items.filter((i) => !ids.includes(i.id));
   let selectedId = s.selectedId;
@@ -224,6 +225,7 @@ export async function removeItems(ids: number[]) {
 
 export async function clearAll() {
   await api.clearItems();
+  strokeCache.clear();
   useStore.setState({ items: [], selection: [], selectedId: null, preview: initialPreview });
   exitMask();
 }

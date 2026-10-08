@@ -18,9 +18,10 @@ upscale with AI, convert and compress to PNG / JPG / WebP / AVIF. One pipeline, 
 * **New background** — solid colour, gradient, your own picture, or the original background blurred.
   The blur can be *depth-aware* (Depth Anything V2 Small, Apache-2.0, optional 95 MB download): things
   near the subject stay sharp and the far background melts away, like a fast lens.
-* **Pipelines** — chain Remove background → Trim → Padding → Resize → Upscale → Enhance → Fill → output
-  format. Reorder by drag, toggle steps, save as presets. Ten built-in presets (Transparent Asset, Web
-  Asset, Website Hero, Thumbnail, Product Photo, Game Texture, PNG Alpha, Small WebP, Upscale 4×, Compress).
+* **Pipelines** — chain Remove background → Trim → Padding → Resize → Upscale → Enhance → Background →
+  output format. Reorder by drag, toggle steps, save as presets. Eleven built-in presets (Transparent Asset,
+  Web Asset, Website Hero, Thumbnail, Product Photo, Blurred Background, Game Texture, PNG Alpha, Small WebP,
+  Upscale 4×, Compress).
 * **Batch** — drop files or whole folders (folder structure can be kept), export everything with one
   click; per-file errors never stop the batch; cancel anytime.
 * **AI upscale 2× / 4×** with Real-ESRGAN (BSD-3): General (fast, noise control), Photo (max detail),

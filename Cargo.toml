@@ -3,7 +3,7 @@ resolver = "2"
 members = ["crates/af-core", "crates/af-cli", "app/src-tauri"]
 
 [workspace.package]
-version = "1.0.3"
+version = "1.1.0"
 edition = "2021"
 license = "MIT"
 authors = ["AlphaForge contributors"]

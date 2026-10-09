@@ -503,3 +503,26 @@ export function ShadowEditor({ step, upd }: { step: Extract<StepEntry, { type: "
     </>
   );
 }
+
+// ---------------------------------------------------------------------------------------------
+export function OutlineEditor({ step, upd }: { step: Extract<StepEntry, { type: "outline" }>; upd: Upd }) {
+  const set = (p: Partial<Extract<StepEntry, { type: "outline" }>>) => upd(p as Partial<StepEntry>);
+  const pct = (v: number) => `${Math.round(v * 100)}%`;
+  return (
+    <>
+      <div className="field-row">
+        <span className="field-label">{t("Thickness")}</span>
+        <Slider min={0.05} max={1} step={0.05} value={step.thickness} onChange={(thickness) => set({ thickness })} format={pct} ariaLabel={t("Thickness")} />
+      </div>
+      <div className="field-row" data-tip={t("Rounds inner corners and closes narrow gaps, like a die-cut sticker.")} data-tip-pos="left">
+        <span className="field-label">{t("Smoothing")}</span>
+        <Slider min={0} max={1} step={0.05} value={step.smooth} onChange={(smooth) => set({ smooth })} format={pct} ariaLabel={t("Smoothing")} />
+      </div>
+      <div className="field">
+        <div className="field-label">{t("Colour")}</div>
+        <ColorField value={step.color as Rgba} onChange={(color) => set({ color: [color[0], color[1], color[2], 255] })} />
+      </div>
+      <div className="faint" style={{ fontSize: 12 }}>{t("Works on cut-outs with a transparent background. Add a Shadow after it for a classic sticker.")}</div>
+    </>
+  );
+}

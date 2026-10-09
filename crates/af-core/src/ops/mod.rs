@@ -2,6 +2,7 @@
 
 pub mod backdrop;
 pub mod quantize;
+pub mod outline;
 pub mod shadow;
 mod resize;
 

@@ -145,6 +145,16 @@ pub enum Step {
         #[serde(default)]
         auto_levels: bool,
     },
+    /// An even, round-cornered border around the cut-out (sticker look).
+    Outline {
+        #[serde(default = "default_half")]
+        thickness: f32,
+        #[serde(default = "default_outline_smooth")]
+        smooth: f32,
+        /// RGBA; alpha is ignored.
+        #[serde(default = "default_outline_color")]
+        color: [u8; 4],
+    },
     /// A shadow under the cut-out: on the ground, or a drop shadow.
     Shadow {
         #[serde(default)]
@@ -204,6 +214,12 @@ fn default_color2() -> [u8; 4] {
 fn default_angle() -> f32 {
     90.0
 }
+fn default_outline_smooth() -> f32 {
+    0.3
+}
+fn default_outline_color() -> [u8; 4] {
+    [255, 255, 255, 255]
+}
 fn default_shadow_opacity() -> f32 {
     0.6
 }
@@ -247,6 +263,7 @@ impl Step {
             Step::Resize { .. } => "resize",
             Step::Upscale { .. } => "upscale",
             Step::Enhance { .. } => "enhance",
+            Step::Outline { .. } => "outline",
             Step::Shadow { .. } => "shadow",
             Step::Background { .. } => "background",
         }
@@ -260,6 +277,7 @@ impl Step {
             Step::Resize { .. } => "Resize",
             Step::Upscale { .. } => "AI upscale",
             Step::Enhance { .. } => "Enhance",
+            Step::Outline { .. } => "Outline",
             Step::Shadow { .. } => "Shadow",
             Step::Background { .. } => "Background",
         }
@@ -406,6 +424,10 @@ impl Pipeline {
                 Step::Background { mode, color, .. } if *mode != BackdropMode::Color || color[3] == 255 => canvas_filled = true,
                 Step::Shadow { .. } if canvas_filled => {
                     w.push("The shadow comes after a step that fills the background, so it has nothing to fall on. Move \"Shadow\" above that step.".into());
+                    break;
+                }
+                Step::Outline { .. } if canvas_filled => {
+                    w.push("The outline comes after a step that fills the background, so there is no edge to outline. Move \"Outline\" above that step.".into());
                     break;
                 }
                 _ => {}

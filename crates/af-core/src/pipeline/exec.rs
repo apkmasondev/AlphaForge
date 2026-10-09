@@ -231,6 +231,20 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                     img = Arc::new(ops::sharpen(&img, sharpen.clamp(0.0, 1.0) * 1.5, 1.2));
                 }
             }
+            Step::Outline { thickness, smooth, color } => {
+                if crate::imageio::is_opaque(&img) {
+                    rep.note = Some("The outline needs a transparent background — add \"Remove background\" before it.".into());
+                } else {
+                    let params = crate::ops::outline::OutlineParams { thickness: *thickness, smooth: *smooth, color: [color[0], color[1], color[2]] };
+                    if let Some((out, (t, r, b, l))) = crate::ops::outline::add_outline(&img, &params) {
+                        check_dims(out.width(), out.height())?;
+                        img = Arc::new(out);
+                        if t + r + b + l > 0 {
+                            behind = behind.map(|bh| Arc::new(ops::pad(&bh, t, r, b, l, [0, 0, 0, 0])));
+                        }
+                    }
+                }
+            }
             Step::Shadow { mode, opacity, softness, size, angle, distance, color } => {
                 if crate::imageio::is_opaque(&img) {
                     rep.note = Some("The shadow needs a transparent background — add \"Remove background\" before it.".into());

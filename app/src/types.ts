@@ -63,6 +63,7 @@ export type Step =
   | { type: "resize"; mode: ResizeMode; width: number; height: number; percent: number; filter: Filter; enlarge: boolean; background: Rgba }
   | { type: "upscale"; model: SrModel; scale: number; denoise: number }
   | { type: "enhance"; denoise: number; sharpen: number; autoLevels: boolean }
+  | { type: "outline"; thickness: number; smooth: number; color: Rgba }
   | { type: "shadow"; mode: ShadowMode; opacity: number; softness: number; size: number; angle: number; distance: number; color: Rgba }
   | {
       type: "background";

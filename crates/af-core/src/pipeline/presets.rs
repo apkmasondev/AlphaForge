@@ -7,6 +7,7 @@ use crate::ai::upscale::SrModel;
 use crate::imageio::{EncodeOptions, PngLevel};
 use crate::mask::Refine;
 use crate::ops::backdrop::{BackdropMode, ImageFit};
+use crate::ops::shadow::ShadowMode;
 use crate::ops::Filter;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -119,6 +120,19 @@ pub fn builtin() -> Vec<Preset> {
                 e("blur", Step::Background { color: [255, 255, 255, 255], mode: BackdropMode::Blur, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.55, depth: true, focus: 0.5, dim: 0.0, image: None, fit: ImageFit::Cover }),
             ],
             out(OutFormat::Jpeg, 92),
+        ),
+        p(
+            "sticker",
+            "Sticker",
+            "Cut-out with a white border and a soft shadow, PNG with alpha.",
+            vec![
+                e("bg", bg()),
+                e("trim", trim()),
+                e("outline", Step::Outline { thickness: 0.5, smooth: 0.3, color: [255, 255, 255, 255] }),
+                e("shadow", Step::Shadow { mode: ShadowMode::Drop, opacity: 0.35, softness: 0.35, size: 0.5, angle: 90.0, distance: 0.08, color: [0, 0, 0, 255] }),
+                e("pad", pad(24.0)),
+            ],
+            out(OutFormat::Png, 90),
         ),
         p(
             "game-texture",

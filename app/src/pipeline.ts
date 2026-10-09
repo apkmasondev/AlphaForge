@@ -23,7 +23,7 @@ export const DEFAULT_OUTPUT: Output = {
   background: [255, 255, 255],
 };
 
-export const STEP_ORDER: StepType[] = ["removeBackground", "trim", "padding", "shadow", "resize", "upscale", "enhance", "background"];
+export const STEP_ORDER: StepType[] = ["removeBackground", "trim", "padding", "outline", "shadow", "resize", "upscale", "enhance", "background"];
 
 export const STEP_LABEL: Record<StepType, string> = {
   removeBackground: "Remove background",
@@ -32,6 +32,7 @@ export const STEP_LABEL: Record<StepType, string> = {
   resize: "Resize",
   upscale: "AI upscale",
   enhance: "Enhance",
+  outline: "Outline",
   shadow: "Shadow",
   background: "Background",
 };
@@ -43,6 +44,7 @@ export const STEP_HINT: Record<StepType, string> = {
   resize: "Scale, fit or crop to a size",
   upscale: "Increase resolution 2× or 4× with AI",
   enhance: "Reduce noise, sharpen, fix levels",
+  outline: "An even border around the cut-out, like a sticker",
   shadow: "A soft shadow on the ground, or a drop shadow",
   background: "Colour, gradient, picture or the original background blurred",
 };
@@ -69,6 +71,8 @@ export function newStep(type: StepType): StepEntry {
       return { ...base, type, model: "general", scale: 2, denoise: 0.5 };
     case "enhance":
       return { ...base, type, denoise: 0, sharpen: 0.3, autoLevels: false };
+    case "outline":
+      return { ...base, type, thickness: 0.5, smooth: 0.3, color: [255, 255, 255, 255] };
     case "shadow":
       return { ...base, type, mode: "ground", opacity: 0.6, softness: 0.5, size: 0.5, angle: 60, distance: 0.25, color: [0, 0, 0, 255] };
     case "background":
@@ -128,6 +132,8 @@ export function stepSummary(s: Step): string {
       if (s.autoLevels) bits.push(t("auto levels"));
       return bits.length ? bits.join(" · ") : t("No changes");
     }
+    case "outline":
+      return `${rgbToHex(s.color)} · ${t("thickness {v}%", { v: Math.round(s.thickness * 100) })}`;
     case "shadow":
       return `${t(s.mode === "ground" ? "On the ground" : "Drop shadow")} · ${Math.round(s.opacity * 100)}%`;
     case "background":

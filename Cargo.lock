@@ -10,7 +10,7 @@ checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
 name = "af-cli"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "af-core",
  "env_logger",
@@ -20,7 +20,7 @@ dependencies = [
 
 [[package]]
 name = "af-core"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "avif-decode",
  "bytemuck",
@@ -106,7 +106,7 @@ checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
 name = "alphaforge"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "af-core",
  "arboard",

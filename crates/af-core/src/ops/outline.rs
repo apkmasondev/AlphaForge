@@ -171,10 +171,7 @@ mod tests {
     fn outline_is_even_and_round() {
         // 40×40 red square in the middle of a transparent canvas
         let img = Rgba::from_fn(100, 100, |x, y| if (30..70).contains(&x) && (30..70).contains(&y) { image::Rgba([220, 20, 20, 255]) } else { image::Rgba([0, 0, 0, 0]) });
-        let p = OutlineParams { thickness: 0.5, smooth: 0.0, color: [255, 255, 255] };
-        let r = 0.5 * 0.08 * 40.0; // 1.6 px … too thin to measure well: use a thicker one
-        assert!(r > 0.0);
-        let p = OutlineParams { thickness: 1.0, ..p }; // 3.2 px
+        let p = OutlineParams { thickness: 1.0, smooth: 0.0, color: [255, 255, 255] }; // 3.2 px
         let (out, m) = add_outline(&img, &p).unwrap();
         assert_eq!(m, (0, 0, 0, 0), "enough room already");
         // subject untouched, white border on every side
@@ -204,8 +201,6 @@ mod tests {
         let img = Rgba::from_fn(120, 80, |x, y| if (20..80).contains(&y) && ((10..50).contains(&x) || (53..93).contains(&x)) { image::Rgba([0, 0, 0, 255]) } else { image::Rgba([0, 0, 0, 0]) });
         let thin = add_outline(&img, &OutlineParams { thickness: 0.15, smooth: 0.0, color: [255, 0, 0] }).unwrap().0;
         let smooth = add_outline(&img, &OutlineParams { thickness: 0.15, smooth: 1.0, color: [255, 0, 0] }).unwrap().0;
-        let (tt, ..) = add_outline(&img, &OutlineParams { thickness: 0.15, smooth: 1.0, color: [255, 0, 0] }).unwrap().1;
-        let _ = tt;
         // the gap column at the top edge of the bars, just outside them
         assert!(smooth.get_pixel(smooth.width() / 2, smooth.height() / 2).0[3] >= thin.get_pixel(thin.width() / 2, thin.height() / 2).0[3]);
     }

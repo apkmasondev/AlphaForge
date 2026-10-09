@@ -102,6 +102,8 @@ pub fn fit_image(pic: &Rgba, w: u32, h: u32, fit: ImageFit, fill: [u8; 4]) -> Re
     let scaled = resize_rgba(pic, sw, sh, Filter::Lanczos)?;
     let x = (w as i64 - sw as i64) / 2;
     let y = (h as i64 - sh as i64) / 2;
+    // Cover hides the fill completely: a plain copy is much faster than compositing
+    let fill = if fit == ImageFit::Cover { [0, 0, 0, 0] } else { fill };
     Ok(super::place_on_canvas(&scaled, w, h, x, y, fill))
 }
 
@@ -244,6 +246,46 @@ fn blur_rgb(img: &Rgba, sigma: f32) -> [Vec<f32>; 3] {
     [out[0].clone(), out[1].clone(), out[2].clone()]
 }
 
+/// A blurred copy kept at a reduced size (blurred images are smooth, so they are sampled back
+/// with bilinear interpolation instead of being stored at full resolution).
+struct Small {
+    p: [Vec<f32>; 3],
+    w: usize,
+    h: usize,
+    sx: f32,
+    sy: f32,
+}
+
+impl Small {
+    fn new(full: &[Vec<f32>; 3], w: u32, h: u32, sigma: f32) -> Small {
+        let factor = (sigma / 6.0).max(1.0);
+        let (sw, sh) = (((w as f32 / factor).round() as u32).max(1), ((h as f32 / factor).round() as u32).max(1));
+        let s = sigma / (w as f32 / sw as f32);
+        let p: Vec<Vec<f32>> = full
+            .par_iter()
+            .map(|pl| {
+                let small = if (sw, sh) == (w, h) { pl.clone() } else { resize_f32_plane(pl, w, h, sw, sh, Filter::Bilinear) };
+                gaussian_blur(&small, sw as usize, sh as usize, s)
+            })
+            .collect();
+        Small { p: [p[0].clone(), p[1].clone(), p[2].clone()], w: sw as usize, h: sh as usize, sx: sw as f32 / w as f32, sy: sh as f32 / h as f32 }
+    }
+
+    /// Bilinear sample of channel `c` at full-resolution pixel (x, y).
+    #[inline]
+    fn at(&self, c: usize, x: usize, y: usize) -> f32 {
+        let fx = ((x as f32 + 0.5) * self.sx - 0.5).clamp(0.0, (self.w - 1) as f32);
+        let fy = ((y as f32 + 0.5) * self.sy - 0.5).clamp(0.0, (self.h - 1) as f32);
+        let (x0, y0) = (fx as usize, fy as usize);
+        let (x1, y1) = ((x0 + 1).min(self.w - 1), (y0 + 1).min(self.h - 1));
+        let (u, v) = (fx - x0 as f32, fy - y0 as f32);
+        let p = &self.p[c];
+        let top = p[y0 * self.w + x0] * (1.0 - u) + p[y0 * self.w + x1] * u;
+        let bot = p[y1 * self.w + x0] * (1.0 - u) + p[y1 * self.w + x1] * u;
+        top * (1.0 - v) + bot * v
+    }
+}
+
 /// The picture the depth model should see: the original where it exists (subject included, so
 /// its distance is known), the filled-in estimate in added padding (no black frame that would
 /// read as a depth edge).
@@ -285,7 +327,10 @@ pub fn blur_background(filled: &Rgba, strength: f32, depth: Option<(&[f32], f32,
         Some((d, ds, focus)) => {
             let (reach_back, reach_front) = focus_reach(focus);
             const LEVELS: usize = 5;
-            let layers: Vec<[Vec<f32>; 3]> = (0..LEVELS).map(|k| blur_rgb(filled, smax * k as f32 / (LEVELS - 1) as f32)).collect();
+            // level 0 is the sharp image itself; the blurred levels live at reduced size
+            let sharp = planes(filled);
+            let blurred: Vec<Small> = (1..LEVELS).map(|k| Small::new(&sharp, w, h, smax * k as f32 / (LEVELS - 1) as f32)).collect();
+            let level = |k: usize, c: usize, i: usize| if k == 0 { sharp[c][i] } else { blurred[k - 1].at(c, i % w as usize, i / w as usize) };
             let n = (w * h) as usize;
             let mut o: [Vec<f32>; 3] = std::array::from_fn(|_| vec![0f32; n]);
             let [o0, o1, o2] = &mut o;
@@ -295,9 +340,9 @@ pub fn blur_background(filled: &Rgba, strength: f32, depth: Option<(&[f32], f32,
                 let f = t.clamp(0.0, 1.0) * (LEVELS - 1) as f32;
                 let k = (f.floor() as usize).min(LEVELS - 2);
                 let u = f - k as f32;
-                *a = layers[k][0][i] * (1.0 - u) + layers[k + 1][0][i] * u;
-                *b = layers[k][1][i] * (1.0 - u) + layers[k + 1][1][i] * u;
-                *c = layers[k][2][i] * (1.0 - u) + layers[k + 1][2][i] * u;
+                *a = level(k, 0, i) * (1.0 - u) + level(k + 1, 0, i) * u;
+                *b = level(k, 1, i) * (1.0 - u) + level(k + 1, 1, i) * u;
+                *c = level(k, 2, i) * (1.0 - u) + level(k + 1, 2, i) * u;
             });
             o
         }

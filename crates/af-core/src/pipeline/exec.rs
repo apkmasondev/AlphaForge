@@ -231,8 +231,8 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                     img = Arc::new(ops::sharpen(&img, sharpen.clamp(0.0, 1.0) * 1.5, 1.2));
                 }
             }
-            Step::Background { color, mode, color2, angle, radial, blur, depth, dim, image, fit } => {
-                let args = BackdropArgs { color: *color, mode: *mode, color2: *color2, angle: *angle, radial: *radial, blur: *blur, depth: *depth, dim: *dim, image: image.as_deref(), fit: *fit };
+            Step::Background { color, mode, color2, angle, radial, blur, depth, focus, dim, image, fit } => {
+                let args = BackdropArgs { color: *color, mode: *mode, color2: *color2, angle: *angle, radial: *radial, blur: *blur, depth: *depth, focus: *focus, dim: *dim, image: image.as_deref(), fit: *fit };
                 img = apply_backdrop(&img, behind.as_deref(), ctx, chain, args, &mut rep, &progress)?;
                 if *mode != BackdropMode::Color || color[3] == 255 {
                     behind = None;
@@ -265,6 +265,7 @@ struct BackdropArgs<'a> {
     radial: bool,
     blur: f32,
     depth: bool,
+    focus: f32,
     dim: f32,
     image: Option<&'a str>,
     fit: ImageFit,
@@ -347,7 +348,7 @@ fn apply_backdrop(img: &Arc<Rgba>, behind: Option<&Rgba>, ctx: &ExecContext, cha
             if let (Some(d), Some(s)) = (depth.as_mut(), ds) {
                 backdrop::push_invented_back(d, behind, s);
             }
-            backdrop::blur_background(&filled, a.blur, depth.as_deref().zip(ds))
+            backdrop::blur_background(&filled, a.blur, depth.as_deref().zip(ds).map(|(d, s)| (d, s, a.focus)))
         }
     };
     if a.dim > 0.0 {

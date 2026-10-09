@@ -28,7 +28,7 @@ fn bg() -> Step {
     Step::RemoveBackground { model: BgModel::Auto, refine: Refine::default() }
 }
 fn backdrop(mode: BackdropMode, color: [u8; 4]) -> Step {
-    Step::Background { color, mode, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.5, depth: false, dim: 0.0, image: None, fit: ImageFit::Cover }
+    Step::Background { color, mode, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.5, depth: false, focus: 0.5, dim: 0.0, image: None, fit: ImageFit::Cover }
 }
 fn fill(color: [u8; 4]) -> Step {
     backdrop(BackdropMode::Color, color)
@@ -116,7 +116,7 @@ pub fn builtin() -> Vec<Preset> {
             "Subject in focus, original background softly blurred by distance (AI depth), JPG.",
             vec![
                 e("bg", bg()),
-                e("blur", Step::Background { color: [255, 255, 255, 255], mode: BackdropMode::Blur, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.55, depth: true, dim: 0.0, image: None, fit: ImageFit::Cover }),
+                e("blur", Step::Background { color: [255, 255, 255, 255], mode: BackdropMode::Blur, color2: [32, 34, 40, 255], angle: 90.0, radial: false, blur: 0.55, depth: true, focus: 0.5, dim: 0.0, image: None, fit: ImageFit::Cover }),
             ],
             out(OutFormat::Jpeg, 92),
         ),

@@ -165,6 +165,9 @@ pub enum Step {
         /// Depth-aware blur with the AI depth model (mode = blur).
         #[serde(default)]
         depth: bool,
+        /// How deep the sharp zone around the subject is, 0..=1 (depth-aware blur).
+        #[serde(default = "default_focus")]
+        focus: f32,
         /// Darken the new background 0..=1.
         #[serde(default)]
         dim: f32,
@@ -181,6 +184,9 @@ fn default_color2() -> [u8; 4] {
 }
 fn default_angle() -> f32 {
     90.0
+}
+fn default_focus() -> f32 {
+    0.5
 }
 fn default_blur() -> f32 {
     0.5

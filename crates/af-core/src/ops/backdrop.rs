@@ -264,24 +264,34 @@ pub fn blur_sigma(w: u32, h: u32, strength: f32) -> f32 {
     strength.clamp(0.0, 1.0) * 0.022 * w.max(h) as f32
 }
 
-/// Blur a filled background. With `depth` (0 = far … 1 = near, image resolution) the blur grows
-/// with the distance from the subject's depth (`subject_depth`), like a real lens: the ground at
-/// the subject's feet stays sharp, the far background is the most blurred.
-pub fn blur_background(filled: &Rgba, strength: f32, depth: Option<(&[f32], f32)>) -> Rgba {
+/// How far (in normalized depth) behind the subject the blur reaches its maximum, for a focus
+/// range 0 (only the subject's plane stays sharp) ..= 1 (a deep zone stays sharp). Things in
+/// front of the subject blur a little faster, as with a real lens.
+pub fn focus_reach(focus: f32) -> (f32, f32) {
+    // never thinner than ~0.12: a hair-thin sharp band only shows the noise of the depth map
+    let behind = 0.12 + focus.clamp(0.0, 1.0) * 0.46;
+    (behind, behind * 0.72)
+}
+
+/// Blur a filled background. With `depth` = (depth map 0 = far … 1 = near at image resolution,
+/// subject depth, focus range 0..=1) the blur grows with the distance from the subject's depth,
+/// like a real lens: the ground at the subject's feet stays sharp, the far background is the most
+/// blurred.
+pub fn blur_background(filled: &Rgba, strength: f32, depth: Option<(&[f32], f32, f32)>) -> Rgba {
     let (w, h) = filled.dimensions();
     let smax = blur_sigma(w, h, strength);
     let out_planes: [Vec<f32>; 3] = match depth {
         None => blur_rgb(filled, smax),
-        Some((d, ds)) => {
+        Some((d, ds, focus)) => {
+            let (reach_back, reach_front) = focus_reach(focus);
             const LEVELS: usize = 5;
             let layers: Vec<[Vec<f32>; 3]> = (0..LEVELS).map(|k| blur_rgb(filled, smax * k as f32 / (LEVELS - 1) as f32)).collect();
             let n = (w * h) as usize;
             let mut o: [Vec<f32>; 3] = std::array::from_fn(|_| vec![0f32; n]);
             let [o0, o1, o2] = &mut o;
             o0.par_iter_mut().zip(o1.par_iter_mut()).zip(o2.par_iter_mut()).enumerate().for_each(|(i, ((a, b), c))| {
-                // things behind the subject blur fully at ~0.35 depth units away; in front a bit faster
                 let dd = ds - d[i];
-                let t = if dd >= 0.0 { dd / 0.35 } else { -dd / 0.25 };
+                let t = if dd >= 0.0 { dd / reach_back } else { -dd / reach_front };
                 let f = t.clamp(0.0, 1.0) * (LEVELS - 1) as f32;
                 let k = (f.floor() as usize).min(LEVELS - 2);
                 let u = f - k as f32;
@@ -391,12 +401,24 @@ mod tests {
         let img = Rgba::from_fn(160, 120, |x, y| if (x / 2 + y / 2) % 2 == 0 { image::Rgba([20, 120, 220, 255]) } else { image::Rgba([240, 200, 40, 255]) });
         let near = vec![1.0f32; 160 * 120];
         let far = vec![0.0f32; 160 * 120];
-        let sharp = blur_background(&img, 1.0, Some((&near, 1.0)));
-        let soft = blur_background(&img, 1.0, Some((&far, 1.0)));
+        let sharp = blur_background(&img, 1.0, Some((&near, 1.0, 0.5)));
+        let soft = blur_background(&img, 1.0, Some((&far, 1.0, 0.5)));
         let contrast = |i: &Rgba| i.pixels().map(|p| p[2] as f32).fold((255f32, 0f32), |(a, b), v| (a.min(v), b.max(v)));
         let (a, b) = contrast(&sharp);
         let (c, d) = contrast(&soft);
         assert!(b - a > 150.0, "same depth as the subject stays sharp");
         assert!(d - c < 60.0, "far background gets blurred");
+    }
+
+    #[test]
+    fn focus_range_controls_the_sharp_zone() {
+        // a pixel a little behind the subject: sharp with a wide focus range, blurred with a narrow one
+        let img = Rgba::from_fn(160, 120, |x, y| if (x / 2 + y / 2) % 2 == 0 { image::Rgba([20, 120, 220, 255]) } else { image::Rgba([240, 200, 40, 255]) });
+        let d = vec![0.85f32; 160 * 120];
+        let contrast = |i: &Rgba| i.pixels().map(|p| p[2] as f32).fold((255f32, 0f32), |(a, b), v| (a.min(v), b.max(v)));
+        let (a, b) = contrast(&blur_background(&img, 1.0, Some((&d, 1.0, 1.0))));
+        let (c, e) = contrast(&blur_background(&img, 1.0, Some((&d, 1.0, 0.0))));
+        assert!(b - a > (e - c) + 40.0, "wide focus keeps more contrast: {} vs {}", b - a, e - c);
+        assert_eq!(focus_reach(0.5).0, 0.35);
     }
 }

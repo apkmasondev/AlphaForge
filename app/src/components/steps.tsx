@@ -400,6 +400,12 @@ export function BackgroundEditor({ step, upd }: { step: Extract<StepEntry, { typ
               ? t("Things near the subject stay sharp, the far background is blurred most — like a real camera.")
               : t("The whole background is blurred evenly.")}
           </div>
+          {step.depth && (
+            <div className="field-row" data-tip={t("Narrow: only the subject's plane stays sharp. Wide: more of the ground around it stays sharp.")} data-tip-pos="left">
+              <span className="field-label">{t("Focus range")}</span>
+              <Slider min={0} max={1} step={0.05} value={step.focus ?? 0.5} onChange={(focus) => set({ focus })} format={(v) => (v < 0.25 ? t("narrow") : v > 0.75 ? t("wide") : `${Math.round(v * 100)}%`)} ariaLabel={t("Focus range")} />
+            </div>
+          )}
           {step.depth && depthModel && !depthModel.installed && (
             <div className="row" style={{ gap: 8, alignItems: "center" }}>
               {dl ? (

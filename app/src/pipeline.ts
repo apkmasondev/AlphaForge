@@ -68,7 +68,7 @@ export function newStep(type: StepType): StepEntry {
     case "enhance":
       return { ...base, type, denoise: 0, sharpen: 0.3, autoLevels: false };
     case "background":
-      return { ...base, type, color: [255, 255, 255, 255], mode: "color", color2: [32, 34, 40, 255], angle: 90, radial: false, blur: 0.5, depth: true, dim: 0, image: null, fit: "cover" };
+      return { ...base, type, color: [255, 255, 255, 255], mode: "color", color2: [32, 34, 40, 255], angle: 90, radial: false, blur: 0.5, depth: true, focus: 0.5, dim: 0, image: null, fit: "cover" };
   }
 }
 

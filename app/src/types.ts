@@ -71,6 +71,7 @@ export type Step =
       radial: boolean;
       blur: number;
       depth: boolean;
+      focus: number;
       dim: number;
       image: string | null;
       fit: ImageFit;

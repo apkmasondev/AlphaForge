@@ -2,6 +2,7 @@
 
 pub mod backdrop;
 pub mod quantize;
+pub mod shadow;
 mod resize;
 
 pub use resize::{resize_f32_plane, resize_rgba, Filter};

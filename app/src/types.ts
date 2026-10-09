@@ -51,6 +51,7 @@ export type TrimMode = "auto" | "alpha" | "color";
 export type PadUnit = "px" | "percent";
 export type ResizeMode = "percent" | "width" | "height" | "fit" | "fill" | "pad" | "exact";
 export type Filter = "lanczos" | "bicubic" | "bilinear" | "nearest";
+export type ShadowMode = "ground" | "drop";
 export type BackdropMode = "color" | "gradient" | "blur" | "image";
 export type ImageFit = "cover" | "contain";
 export type SrModel = "general" | "photo" | "illustration";
@@ -62,6 +63,7 @@ export type Step =
   | { type: "resize"; mode: ResizeMode; width: number; height: number; percent: number; filter: Filter; enlarge: boolean; background: Rgba }
   | { type: "upscale"; model: SrModel; scale: number; denoise: number }
   | { type: "enhance"; denoise: number; sharpen: number; autoLevels: boolean }
+  | { type: "shadow"; mode: ShadowMode; opacity: number; softness: number; size: number; angle: number; distance: number; color: Rgba }
   | {
       type: "background";
       color: Rgba;

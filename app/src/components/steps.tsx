@@ -2,7 +2,7 @@ import { Brush, Download, ImagePlus, Link2, Unlink2 } from "lucide-react";
 import { api } from "../api";
 import { enterMask, installModel } from "../actions";
 import { useStore } from "../store";
-import type { BackdropMode, BgModel, ImageFit, Refine, ResizeMode, Rgba, StepEntry } from "../types";
+import type { BackdropMode, BgModel, ImageFit, Refine, ResizeMode, Rgba, ShadowMode, StepEntry } from "../types";
 import { fmtBytes } from "../lib/format";
 import { CheckRow, ColorField, NumberField, Segmented, Slider } from "./ui";
 import { useState } from "react";
@@ -450,6 +450,56 @@ export function BackgroundEditor({ step, upd }: { step: Extract<StepEntry, { typ
           <Slider min={0} max={1} step={0.05} value={step.dim} onChange={(dim) => set({ dim })} format={(v) => `${Math.round(v * 100)}%`} ariaLabel={t("Darken")} />
         </div>
       )}
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------------------------
+export function ShadowEditor({ step, upd }: { step: Extract<StepEntry, { type: "shadow" }>; upd: Upd }) {
+  const set = (p: Partial<Extract<StepEntry, { type: "shadow" }>>) => upd(p as Partial<StepEntry>);
+  const pct = (v: number) => `${Math.round(v * 100)}%`;
+  return (
+    <>
+      <Segmented
+        full
+        ariaLabel={t("Shadow")}
+        value={step.mode}
+        onChange={(mode: ShadowMode) => set({ mode })}
+        options={[
+          { value: "ground", label: t("On the ground"), title: t("The object stands on a surface: a contact shadow and a soft shadow under it") },
+          { value: "drop", label: t("Drop shadow"), title: t("The silhouette, offset and blurred") },
+        ]}
+      />
+      <div className="field-row">
+        <span className="field-label">{t("Opacity")}</span>
+        <Slider min={0} max={1} step={0.05} value={step.opacity} onChange={(opacity) => set({ opacity })} format={pct} ariaLabel={t("Opacity")} />
+      </div>
+      <div className="field-row">
+        <span className="field-label">{t("Softness")}</span>
+        <Slider min={0} max={1} step={0.05} value={step.softness} onChange={(softness) => set({ softness })} format={pct} ariaLabel={t("Softness")} />
+      </div>
+      {step.mode === "ground" ? (
+        <div className="field-row">
+          <span className="field-label">{t("Width")}</span>
+          <Slider min={0} max={1} step={0.05} value={step.size} onChange={(size) => set({ size })} format={pct} ariaLabel={t("Width")} />
+        </div>
+      ) : (
+        <>
+          <div className="field-row">
+            <span className="field-label">{t("Direction")}</span>
+            <Slider min={0} max={355} step={5} value={step.angle} onChange={(angle) => set({ angle })} format={(v) => `${v}°`} ariaLabel={t("Direction")} />
+          </div>
+          <div className="field-row">
+            <span className="field-label">{t("Distance")}</span>
+            <Slider min={0} max={1} step={0.05} value={step.distance} onChange={(distance) => set({ distance })} format={pct} ariaLabel={t("Distance")} />
+          </div>
+        </>
+      )}
+      <div className="field">
+        <div className="field-label">{t("Colour")}</div>
+        <ColorField value={step.color as Rgba} onChange={(color) => set({ color: [color[0], color[1], color[2], 255] })} />
+      </div>
+      <div className="faint" style={{ fontSize: 12 }}>{t("Works on cut-outs with a transparent background. The canvas grows if the shadow needs room.")}</div>
     </>
   );
 }

@@ -10,6 +10,7 @@ import {
   Maximize2,
   MoreHorizontal,
   PaintBucket,
+  Spotlight,
   Plus,
   Save,
   Scaling,
@@ -28,7 +29,8 @@ import { S, useStore } from "../store";
 import type { OutFormat, PngLevel, StepEntry, StepType } from "../types";
 import { fmtBytes, fmtSaved } from "../lib/format";
 import { CheckRow, ColorField, Menu, Segmented, Slider, Switch, useMenu } from "./ui";
-import { BackgroundEditor, EnhanceEditor, PaddingEditor, RemoveBackgroundEditor, ResizeEditor, TrimEditor, UpscaleEditor } from "./steps";
+import { BackgroundEditor,
+  ShadowEditor, EnhanceEditor, PaddingEditor, RemoveBackgroundEditor, ResizeEditor, TrimEditor, UpscaleEditor } from "./steps";
 import { t, tr } from "../i18n";
 
 const ICON: Record<StepType, React.ReactNode> = {
@@ -38,6 +40,7 @@ const ICON: Record<StepType, React.ReactNode> = {
   resize: <Scaling size={15} />,
   upscale: <Maximize2 size={15} />,
   enhance: <Wand2 size={15} />,
+  shadow: <Spotlight size={15} />,
   background: <PaintBucket size={15} />,
 };
 const AI_STEP: Partial<Record<StepType, boolean>> = { removeBackground: true, upscale: true };
@@ -168,6 +171,7 @@ function StepCard({ step, index, total, open, toggle, onGrip, dragState }: {
           {step.type === "resize" && <ResizeEditor step={step} upd={upd} />}
           {step.type === "upscale" && <UpscaleEditor step={step} upd={upd} />}
           {step.type === "enhance" && <EnhanceEditor step={step} upd={upd} />}
+          {step.type === "shadow" && <ShadowEditor step={step} upd={upd} />}
           {step.type === "background" && <BackgroundEditor step={step} upd={upd} />}
         </div>
       )}

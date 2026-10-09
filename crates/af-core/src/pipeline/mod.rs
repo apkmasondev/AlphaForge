@@ -13,6 +13,7 @@ use crate::ai::upscale::SrModel;
 use crate::imageio::{EncodeOptions, Format};
 use crate::mask::Refine;
 use crate::ops::backdrop::{BackdropMode, ImageFit};
+use crate::ops::shadow::ShadowMode;
 use crate::ops::Filter;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
@@ -144,6 +145,24 @@ pub enum Step {
         #[serde(default)]
         auto_levels: bool,
     },
+    /// A shadow under the cut-out: on the ground, or a drop shadow.
+    Shadow {
+        #[serde(default)]
+        mode: ShadowMode,
+        #[serde(default = "default_shadow_opacity")]
+        opacity: f32,
+        #[serde(default = "default_half")]
+        softness: f32,
+        #[serde(default = "default_half")]
+        size: f32,
+        #[serde(default = "default_shadow_angle")]
+        angle: f32,
+        #[serde(default = "default_shadow_distance")]
+        distance: f32,
+        /// RGBA; alpha is ignored (opacity has its own control).
+        #[serde(default = "default_shadow_color")]
+        color: [u8; 4],
+    },
     /// Put something behind the (cut-out) image: a colour, a gradient, a picture, or the
     /// original background blurred.
     Background {
@@ -185,6 +204,21 @@ fn default_color2() -> [u8; 4] {
 fn default_angle() -> f32 {
     90.0
 }
+fn default_shadow_opacity() -> f32 {
+    0.6
+}
+fn default_half() -> f32 {
+    0.5
+}
+fn default_shadow_angle() -> f32 {
+    60.0
+}
+fn default_shadow_distance() -> f32 {
+    0.25
+}
+fn default_shadow_color() -> [u8; 4] {
+    [0, 0, 0, 255]
+}
 fn default_focus() -> f32 {
     0.5
 }
@@ -213,6 +247,7 @@ impl Step {
             Step::Resize { .. } => "resize",
             Step::Upscale { .. } => "upscale",
             Step::Enhance { .. } => "enhance",
+            Step::Shadow { .. } => "shadow",
             Step::Background { .. } => "background",
         }
     }
@@ -225,6 +260,7 @@ impl Step {
             Step::Resize { .. } => "Resize",
             Step::Upscale { .. } => "AI upscale",
             Step::Enhance { .. } => "Enhance",
+            Step::Shadow { .. } => "Shadow",
             Step::Background { .. } => "Background",
         }
     }
@@ -361,6 +397,20 @@ impl Pipeline {
                 w.push("Removing the background after upscaling is slower and not more accurate. Consider moving \"AI upscale\" below \"Remove background\".".into());
             }
         }
+        // a shadow needs transparency to fall on: warn when an earlier step already filled it
+        let mut canvas_filled = false;
+        for s in self.active() {
+            match &s.step {
+                Step::RemoveBackground { .. } => canvas_filled = false,
+                Step::Resize { mode: ResizeMode::Pad, background, .. } if background[3] == 255 => canvas_filled = true,
+                Step::Background { mode, color, .. } if *mode != BackdropMode::Color || color[3] == 255 => canvas_filled = true,
+                Step::Shadow { .. } if canvas_filled => {
+                    w.push("The shadow comes after a step that fills the background, so it has nothing to fall on. Move \"Shadow\" above that step.".into());
+                    break;
+                }
+                _ => {}
+            }
+        }
         let blur_idx = self.active().position(|s| matches!(s.step, Step::Background { mode: BackdropMode::Blur, .. }));
         if let Some(b) = blur_idx {
             if bg_idx.is_none_or(|r| r > b) {
@@ -395,5 +445,14 @@ mod warning_tests {
         assert_eq!(pipe(&format!("{bg},{fill},{pad}"), "jpeg").warnings().len(), 1);
         assert_eq!(pipe(bg, "jpeg").warnings().len(), 1);
         assert!(pipe(bg, "png").warnings().is_empty());
+    }
+
+    #[test]
+    fn shadow_after_a_fill_is_flagged() {
+        let bg = r#"{"id":"b","type":"removeBackground"}"#;
+        let pad_white = r#"{"id":"r","type":"resize","mode":"pad","width":100,"height":100,"background":[255,255,255,255]}"#;
+        let shadow = r#"{"id":"s","type":"shadow"}"#;
+        assert_eq!(pipe(&format!("{bg},{shadow},{pad_white}"), "png").warnings().len(), 0);
+        assert_eq!(pipe(&format!("{bg},{pad_white},{shadow}"), "png").warnings().len(), 1);
     }
 }

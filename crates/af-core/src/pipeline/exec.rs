@@ -231,6 +231,20 @@ pub fn run(p: &Pipeline, input: Arc<Rgba>, ctx: &ExecContext) -> Result<RunResul
                     img = Arc::new(ops::sharpen(&img, sharpen.clamp(0.0, 1.0) * 1.5, 1.2));
                 }
             }
+            Step::Shadow { mode, opacity, softness, size, angle, distance, color } => {
+                if crate::imageio::is_opaque(&img) {
+                    rep.note = Some("The shadow needs a transparent background — add \"Remove background\" before it.".into());
+                } else {
+                    let params = crate::ops::shadow::ShadowParams { mode: *mode, opacity: *opacity, softness: *softness, size: *size, angle: *angle, distance: *distance, color: [color[0], color[1], color[2]] };
+                    if let Some((out, (t, r, b, l))) = crate::ops::shadow::add_shadow(&img, &params) {
+                        check_dims(out.width(), out.height())?;
+                        img = Arc::new(out);
+                        if t + r + b + l > 0 {
+                            behind = behind.map(|bh| Arc::new(ops::pad(&bh, t, r, b, l, [0, 0, 0, 0])));
+                        }
+                    }
+                }
+            }
             Step::Background { color, mode, color2, angle, radial, blur, depth, focus, dim, image, fit } => {
                 let args = BackdropArgs { color: *color, mode: *mode, color2: *color2, angle: *angle, radial: *radial, blur: *blur, depth: *depth, focus: *focus, dim: *dim, image: image.as_deref(), fit: *fit };
                 img = apply_backdrop(&img, behind.as_deref(), ctx, chain, args, &mut rep, &progress)?;
